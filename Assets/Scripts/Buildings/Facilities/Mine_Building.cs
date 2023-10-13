@@ -42,7 +42,7 @@ public class Mine_Building : Buildings
             {
                 miningDigimon[i] = digimonToAssign;
                 GameManager.instance.StartChildCoroutine(ActivateDelay(digimonToAssign));
-                return "Tu " + digimonToAssign.name + " ahora está minando.";
+                return "Tu " + digimonToAssign.name + " ahora estï¿½ minando.";
             }
         }
         return "No tienes espacio";
@@ -61,6 +61,11 @@ public class Mine_Building : Buildings
     public override Sprite GetSprite()
     {
         return sprite;
+    }
+
+    public override void SetCardResource()
+    {
+        GameManager.instance.SetMineCardResource(energyRequired);
     }
 
     public override void ConsumeResource()

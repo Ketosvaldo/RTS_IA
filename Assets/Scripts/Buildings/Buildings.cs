@@ -12,4 +12,5 @@ public abstract class Buildings
     public abstract IEnumerator ActivateDelay(DigimonObject trainedDigimon);
     public abstract void SetSprite(Sprite sprite);
     public abstract Sprite GetSprite();
+    public abstract void SetCardResource();
 }

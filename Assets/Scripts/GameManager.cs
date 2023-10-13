@@ -81,4 +81,25 @@ public class GameManager : MonoBehaviour
     {
         AlertUI.gameObject.SetActive(false);
     }
+
+    public void SetFarmCardResource(float energyResource)
+    {
+        FarmEnergyCostUI.text = ((int)energyResource).ToString();
+    }
+    
+    public void SetMineCardResource(float energyResource)
+    {
+        MineEnergyCostUI.text = ((int)energyResource).ToString();
+    }
+
+    public void SetGymCardResource(float energyResource, float nutsResource)
+    {
+        GymEnergyCostUI.text = ((int)energyResource).ToString();
+        GymNutsCostUI.text = ((int)nutsResource).ToString();
+    }
+
+    public Base GetBase()
+    {
+        return playerBase;
+    }
 }

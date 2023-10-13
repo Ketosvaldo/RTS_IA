@@ -15,6 +15,7 @@ public class Build_Card : MonoBehaviour
         sprite = transform.GetChild(0).GetComponent<Image>().sprite;
         SetBuilding(buildName);
         SetSprite();
+        build.SetCardResource();
     }
 
     void SetBuilding(string buildingName)

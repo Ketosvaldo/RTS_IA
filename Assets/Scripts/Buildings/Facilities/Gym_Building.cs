@@ -21,7 +21,7 @@ public class Gym_Building : Buildings
             {
                 trainingDigimons[i] = digimonToAssign;
                 GameManager.instance.StartChildCoroutine(ActivateDelay(digimonToAssign));
-                return "Tu " + digimonToAssign.name + " ahora está entrenando.";
+                return "Tu " + digimonToAssign.name + " ahora estï¿½ entrenando.";
             }
         }
         return "No tienes espacio";
@@ -63,6 +63,11 @@ public class Gym_Building : Buildings
     public override Sprite GetSprite()
     {
         return sprite;
+    }
+
+    public override void SetCardResource()
+    {
+        GameManager.instance.SetGymCardResource(energyRequired, nutsRequired);
     }
 
     public override void ConsumeResource()

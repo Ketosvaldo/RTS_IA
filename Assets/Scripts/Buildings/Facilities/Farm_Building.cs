@@ -43,7 +43,7 @@ public class Farm_Building : Buildings
             {
                 farmingDigimons[i] = digimonToAssign;
                 GameManager.instance.StartChildCoroutine(ActivateDelay(digimonToAssign));
-                return "Tu " + digimonToAssign.name + " ahora está cosechando.";
+                return "Tu " + digimonToAssign.name + " ahora estï¿½ cosechando.";
             }
         }
         return "No tienes espacio";
@@ -64,6 +64,11 @@ public class Farm_Building : Buildings
     public override Sprite GetSprite()
     {
         return buildSprite;
+    }
+
+    public override void SetCardResource()
+    {
+        GameManager.instance.SetFarmCardResource(energyRequired);
     }
 
     public override void ConsumeResource()
