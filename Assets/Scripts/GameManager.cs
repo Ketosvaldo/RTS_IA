@@ -13,6 +13,12 @@ public class GameManager : MonoBehaviour
     [Header("Alerta UI")]
     public TextMeshProUGUI AlertUI;
 
+    [Header("Costos de Builds UI")] 
+    public TextMeshProUGUI FarmEnergyCostUI;
+    public TextMeshProUGUI MineEnergyCostUI;
+    public TextMeshProUGUI GymEnergyCostUI;
+    public TextMeshProUGUI GymNutsCostUI;
+
     Base playerBase;
 
     private void Awake()
