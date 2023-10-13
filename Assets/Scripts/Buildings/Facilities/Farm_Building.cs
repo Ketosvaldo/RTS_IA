@@ -9,6 +9,7 @@ public class Farm_Building : Buildings
     DigimonObject[] farmingDigimons = new DigimonObject[2];
     float delay = 30;
     float expEarned = 2;
+    float energyRequired = 20f;
     Sprite buildSprite;
 
     public override void LevelUpBuild()
@@ -67,6 +68,11 @@ public class Farm_Building : Buildings
 
     public override void ConsumeResource()
     {
-        throw new System.NotImplementedException();
+        GameManager.instance.ConsumeEnergy(energyRequired);
+    }
+
+    public override bool CanBuild()
+    {
+        return GameManager.instance.CheckEnergy(energyRequired);
     }
 }

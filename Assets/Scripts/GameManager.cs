@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI FoodUI;
     public TextMeshProUGUI NutsUI;
     public TextMeshProUGUI EnergyUI;
+    [Header("Alerta UI")]
+    public TextMeshProUGUI AlertUI;
 
     Base playerBase;
 
@@ -50,5 +52,27 @@ public class GameManager : MonoBehaviour
         if (playerBase.GetNuts() - nuts < 0)
             return;
         playerBase.SetNuts(playerBase.GetNuts() - nuts);
+    }
+
+    public void ActivateAlert(string message)
+    {
+        AlertUI.gameObject.SetActive(true);
+        AlertUI.text = message;
+        Invoke("DeactivateAlert", 3f);
+    }
+
+    public bool CheckEnergy(float energy)
+    {
+        return playerBase.GetEnergy() - energy > 0;
+    }
+
+    public bool CheckNuts(float nuts)
+    {
+        return playerBase.GetNuts() - nuts > 0;
+    }
+
+    void DeactivateAlert()
+    {
+        AlertUI.gameObject.SetActive(false);
     }
 }

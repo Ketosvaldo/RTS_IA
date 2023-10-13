@@ -9,7 +9,7 @@ public class Mine_Building : Buildings
     float nutsUpg = 3;
     DigimonObject[] miningDigimon = new DigimonObject[2];
     Sprite sprite;
-
+    float energyRequired = 30f;
     public override void LevelUpBuild()
     {
         level += 1;
@@ -65,6 +65,11 @@ public class Mine_Building : Buildings
 
     public override void ConsumeResource()
     {
-        throw new System.NotImplementedException();
+        GameManager.instance.ConsumeEnergy(30f);
+    }
+
+    public override bool CanBuild()
+    {
+        return GameManager.instance.CheckEnergy(energyRequired);
     }
 }

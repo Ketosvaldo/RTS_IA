@@ -34,6 +34,11 @@ public class Build_Card : MonoBehaviour
 
     public void ChooseBuild()
     {
+        if (!build.CanBuild())
+        {
+            GameManager.instance.ActivateAlert("No te alcanza pa");
+            return;
+        }
         BuildManager.Instance.SetBuildInfo(build);
     }
 }

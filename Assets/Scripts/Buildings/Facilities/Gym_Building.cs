@@ -9,6 +9,8 @@ public class Gym_Building : Buildings
     float combatUpg = 3;
     float delay = 30;
     float expEarned = 2;
+    float energyRequired = 30f;
+    float nutsRequired = 15;
     Sprite sprite;
 
     public override string AssignDigimon(DigimonObject digimonToAssign)
@@ -65,6 +67,12 @@ public class Gym_Building : Buildings
 
     public override void ConsumeResource()
     {
-        throw new System.NotImplementedException();
+        GameManager.instance.ConsumeEnergy(energyRequired);
+        GameManager.instance.ConsumeNuts(nutsRequired);
+    }
+
+    public override bool CanBuild()
+    {
+        return GameManager.instance.CheckEnergy(energyRequired) && GameManager.instance.CheckNuts(nutsRequired);
     }
 }
