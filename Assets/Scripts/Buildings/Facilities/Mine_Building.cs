@@ -62,4 +62,9 @@ public class Mine_Building : Buildings
     {
         return sprite;
     }
+
+    public override void ConsumeResource()
+    {
+        throw new System.NotImplementedException();
+    }
 }

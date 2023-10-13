@@ -16,6 +16,7 @@ public class BuildManager : MonoBehaviour
     public void SetBuildInfo(Buildings build)
     {
         props = build;
+        props.ConsumeResource();
     }
 
     public Buildings GetBuildInfo()

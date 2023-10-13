@@ -64,4 +64,9 @@ public class Farm_Building : Buildings
     {
         return buildSprite;
     }
+
+    public override void ConsumeResource()
+    {
+        throw new System.NotImplementedException();
+    }
 }

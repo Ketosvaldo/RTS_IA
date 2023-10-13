@@ -12,22 +12,17 @@ public class Base : MonoBehaviour
     float foodprscnd = 0;
     float nuts = 0;
     float nutsprscnd = 0;
-    float actualTime;
 
     public GameObject Menu;
 
     int level = 1;
 
-    private void Start()
-    {
-        actualTime = Time.deltaTime;
-    }
-
     void Update()
     {
-        nrg += nrgprscnd * actualTime;
-        food += foodprscnd * actualTime;
-        nuts += nutsprscnd * actualTime;
+        nrg += nrgprscnd * Time.deltaTime;
+        food += foodprscnd * Time.deltaTime;
+        nuts += nutsprscnd * Time.deltaTime;
+        GameManager.instance.UpdateUIResources();
     }
 
     public void EnergyUpgrade(float newNrg)
@@ -65,5 +60,35 @@ public class Base : MonoBehaviour
     private void OnMouseDown()
     {
         Menu.SetActive(true);
+    }
+
+    public float GetFood()
+    {
+        return food;
+    }
+
+    public float GetNuts()
+    {
+        return nuts;
+    }
+
+    public float GetEnergy()
+    {
+        return nrg;
+    }
+
+    public void SetEnergy(float energy)
+    {
+        nrg = energy;
+    }
+
+    public void SetNuts(float nuts)
+    {
+        this.nuts = nuts;
+    }
+
+    public void SetFood(float food)
+    {
+        this.food = food;
     }
 }
