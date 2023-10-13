@@ -8272,7 +8272,7 @@ MonoBehaviour:
   FoodUI: {fileID: 1295299772}
   NutsUI: {fileID: 1564802839}
   EnergyUI: {fileID: 1758777579}
-  AlertUI: {fileID: 0}
+  AlertUI: {fileID: 750937015}
 --- !u!4 &243886878
 Transform:
   m_ObjectHideFlags: 0
