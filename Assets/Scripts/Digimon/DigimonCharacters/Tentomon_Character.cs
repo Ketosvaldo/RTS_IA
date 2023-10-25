@@ -4,9 +4,7 @@ public class Tentomon_Character : DigimonCharacters
     {
         name = "Tentomon";
         combatPoints = 15;
-        enginneerPoints = 30;
-        miningPoints = 15;
-        intelligentPoints = 45;
-        farmPoints = 24;
+        miningPoints = 30;
+        farmPoints = 10;
     }
 }

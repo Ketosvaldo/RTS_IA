@@ -39,10 +39,8 @@ public class DigimonCards : MonoBehaviour
         DigiObject.transform.Rotate(new Vector3(60, 0, 0));
         DigimonObject props = DigiObject.GetComponent<DigimonObject>();
         props.combatPoints = character.combatPoints;
-        props.intelligentPoints = character.intelligentPoints;
         props.miningPoints = character.miningPoints;
         props.farmPoints = character.farmPoints;
-        props.enginneerPoints = character.enginneerPoints;
         props.SetSprite(sprite);
         DigiObject.name = character.name;
     }

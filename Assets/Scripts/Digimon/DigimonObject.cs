@@ -23,20 +23,9 @@ public class DigimonObject : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprite;
     }
-
-    public void SetEnginneerType()
-    {
-        type = new Enginner_Type();
-        SetStats();
-    }
     public void SetCombatType()
     {
         type = new Combat_Type();
-        SetStats();
-    }
-    public void SetIntelligentType()
-    {
-        type = new Intelligent_Type();
         SetStats();
     }
     public void SetMiningType()
@@ -69,9 +58,7 @@ public class DigimonObject : MonoBehaviour
     void SetStats()
     {
         combatPoints = type.GetCombat(combatPoints);
-        enginneerPoints = type.GetEnginner(enginneerPoints);
         farmPoints = type.GetFarming(farmPoints);
-        intelligentPoints = type.GetIntelligence(intelligentPoints);
         miningPoints = type.GetMining(miningPoints);
     }
 }
