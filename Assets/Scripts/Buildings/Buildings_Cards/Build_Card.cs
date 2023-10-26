@@ -1,13 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*Esta clase es para crear los Builds (Edificios), van en la UI*/
 public class Build_Card : MonoBehaviour
 {
+    //Variable para obtener la build a crear
     Buildings build;
 
+    //Variable para saber que build crear, se establece como pública porque se modifica en inspector
     public string buildName;
+    //Variable 
     public Sprite sprite;
 
     void Start()

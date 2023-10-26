@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
+/*Esta es la clase de la base del jugador, aquí se encuentra todo lo que requiere la base*/
 public class Base : MonoBehaviour
 {
+    //Propiedades de la base al iniciar el juego
     float health = 1000;
     float nrg = 40;
     float nrgprscnd = 1;
@@ -12,11 +11,14 @@ public class Base : MonoBehaviour
     float foodprscnd = 0;
     float nuts = 0;
     float nutsprscnd = 0;
-
+    
+    //GameObject que despliega un menú para utilizar funciones de la base
     public GameObject Menu;
 
+    //Empieza la base en nivel 1
     int level = 1;
 
+    /*Función Update se utiliza únicamente para añadir recursos por segundo y actualizar la UI*/
     void Update()
     {
         nrg += nrgprscnd * Time.deltaTime;
@@ -25,27 +27,32 @@ public class Base : MonoBehaviour
         GameManager.instance.UpdateUIResources();
     }
 
+    //Función pública para mejorar la cantidad de energía por segundo
     public void EnergyUpgrade(float newNrg)
     {
         nrgprscnd += newNrg;
     }
 
+    //Función pública para mejorar la cantidad de comida por segundo
     public void FoodUpgrade(float newFood)
     {
         foodprscnd += newFood;
     }
 
+    //Función pública para mejorar la cantidad de tuercas por segundo
     public void NutsUpgrade(float newNuts)
     {
         nutsprscnd += newNuts;
     }
 
+    //Función pública para aumentar el nivel de la base
     public void LevelUp()
     {
         level++;
         Levels();
     }
 
+    //Esta función establece las mejoras cuando subes de nivel
     void Levels()
     {
         switch (level)
@@ -62,31 +69,37 @@ public class Base : MonoBehaviour
         Menu.SetActive(true);
     }
 
+    //Retorna la cantidad actual de comida
     public float GetFood()
     {
         return food;
     }
 
+    //Retorna la cantidad actual de tuercas
     public float GetNuts()
     {
         return nuts;
     }
 
+    //Retorna la cantidad actual de energía
     public float GetEnergy()
     {
         return nrg;
     }
 
+    //Establece la cantidad de energia
     public void SetEnergy(float energy)
     {
         nrg = energy;
     }
 
+    //Establece la cantidad de tuercas
     public void SetNuts(float nuts)
     {
         this.nuts = nuts;
     }
 
+    //Establece la cantidad de comida
     public void SetFood(float food)
     {
         this.food = food;
