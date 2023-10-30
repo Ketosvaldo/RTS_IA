@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
+/*Clase heredada de Buildings, para saber que hace cada función, checar la clase Buildings*/
+
 public class Farm_Building : Buildings
 {
     GameObject myBase;

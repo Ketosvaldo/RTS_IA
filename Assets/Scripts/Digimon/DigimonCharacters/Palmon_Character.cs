@@ -1,3 +1,4 @@
+/*Clase creada para establecer la info del character*/
 public class Palmon_Character : DigimonCharacters
 {
     public Palmon_Character()

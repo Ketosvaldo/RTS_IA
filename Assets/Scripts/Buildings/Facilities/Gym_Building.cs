@@ -1,6 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/*Clase heredada de Buildings, para saber que hace cada función, checar la clase Buildings*/
 
 public class Gym_Building : Buildings
 {

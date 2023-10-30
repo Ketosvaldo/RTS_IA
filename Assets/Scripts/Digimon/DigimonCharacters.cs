@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//Clase genérica que guarda las propiedades del Digimon
 public class DigimonCharacters
 {
     public string name;

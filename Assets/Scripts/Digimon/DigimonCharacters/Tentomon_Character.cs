@@ -1,3 +1,4 @@
+/*Clase creada para establecer la info del character*/
 public class Tentomon_Character : DigimonCharacters
 {
     public Tentomon_Character()

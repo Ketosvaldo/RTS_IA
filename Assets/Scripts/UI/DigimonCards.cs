@@ -1,8 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+//Esta clase sirve para las cards en UI de cada Digimon, lo importante aquí es escribir el nombre del Digimon
+
 public class DigimonCards : MonoBehaviour
 {
+    //Referencia al Digimona a guardar
     DigimonCharacters character;
     GameObject childObject;
     public string DigimonName;
