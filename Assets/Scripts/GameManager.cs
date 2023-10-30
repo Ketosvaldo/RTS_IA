@@ -4,18 +4,18 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    //Se declara como static para poder ser llamado desde cualquier código sin tener una referencia
+    //Se declara como static para poder ser llamado desde cualquier codigo sin tener una referencia
     public static GameManager instance;
     
-    //Referencias públicas de la UI de los recursos 
+    //Referencias pï¿½blicas de la UI de los recursos 
     [Header("Recursos UI")]
     public TextMeshProUGUI FoodUI;
     public TextMeshProUGUI NutsUI;
     public TextMeshProUGUI EnergyUI;
-    //Referencia pública del mensaje de Alerta
+    //Referencia pï¿½blica del mensaje de Alerta
     [Header("Alerta UI")]
     public TextMeshProUGUI AlertUI;
-    //Referencia pública de la UI que representa los costos de construir una Build
+    //Referencia pï¿½blica de la UI que representa los costos de construir una Build
     [Header("Costos de Builds UI")] 
     public TextMeshProUGUI FarmEnergyCostUI;
     public TextMeshProUGUI MineEnergyCostUI;
@@ -24,21 +24,21 @@ public class GameManager : MonoBehaviour
     //Referencia de la base del jugador
     Base playerBase;
 
-    //Al iniciar, obtendrá la referencia de la base del jugador en automático.
+    //Al iniciar, obtendrï¿½ la referencia de la base del jugador en automï¿½tico.
     private void Awake()
     {
         instance = this;
         playerBase = GameObject.FindGameObjectWithTag("MyBase").GetComponent<Base>();
     }
 
-    //Función pública para iniciar una Corrutina desde scripts que no heredan de Monobehaviour
+    //Funciï¿½n pï¿½blica para iniciar una Corrutina desde scripts que no heredan de Monobehaviour
     public void StartChildCoroutine(IEnumerator coroutineMethod)
     {
         StartCoroutine(coroutineMethod);
     }
 
     /*
-    Actualiza los valores de los recursos con los que contamos, se establece como pública para ser llamada desde
+    Actualiza los valores de los recursos con los que contamos, se establece como pï¿½blica para ser llamada desde
     otro script
     */
     public void UpdateUIResources()
@@ -48,8 +48,8 @@ public class GameManager : MonoBehaviour
         EnergyUI.text = ((int)playerBase.GetEnergy()).ToString();
     }
 
-    //Función pública que sirve para consumir el recurso energía con un parámetro que determina la cantidad de
-    //energía a consumir
+    //Funciï¿½n pï¿½blica que sirve para consumir el recurso energï¿½a con un parï¿½metro que determina la cantidad de
+    //energï¿½a a consumir
     public void ConsumeEnergy(float energy)
     {
         if (playerBase.GetEnergy() - energy < 0)
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
         playerBase.SetEnergy(playerBase.GetEnergy() - energy);
     }
 
-    //Función pública que sirve para consumir el recurso comida con un parámetro que determina la cantidad de
+    //Funciï¿½n pï¿½blica que sirve para consumir el recurso comida con un parï¿½metro que determina la cantidad de
     //comida a consumir
     public void ConsumeFood(float food)
     {
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         playerBase.SetFood(playerBase.GetFood() - food);
     }
 
-    //Función pública que sirve para consumir el recurso tuercas con un parámetro que determina la cantidad de
+    //Funciï¿½n pï¿½blica que sirve para consumir el recurso tuercas con un parï¿½metro que determina la cantidad de
     //tuercas a consumir
     public void ConsumeNuts(float nuts)
     {
@@ -75,8 +75,8 @@ public class GameManager : MonoBehaviour
         playerBase.SetNuts(playerBase.GetNuts() - nuts);
     }
 
-    //Función pública que sirve para activar un mensaje en UI para el jugador, donde dicho mensaje se escribe
-    //como parámetro
+    //Funciï¿½n pï¿½blica que sirve para activar un mensaje en UI para el jugador, donde dicho mensaje se escribe
+    //como parï¿½metro
     public void ActivateAlert(string message)
     {
         AlertUI.gameObject.SetActive(true);
@@ -84,14 +84,14 @@ public class GameManager : MonoBehaviour
         Invoke("DeactivateAlert", 3f);
     }
 
-    //Función que retorna verdadero o falso para verificar que contamos con la cantidad de energía necesaria
+    //Funciï¿½n que retorna verdadero o falso para verificar que contamos con la cantidad de energï¿½a necesaria
     //para realizar un proceso
     public bool CheckEnergy(float energy)
     {
         return playerBase.GetEnergy() - energy > 0;
     }
 
-    //Función que retorna verdadero o falso para verificar que contamos con la cantidad de tuercas necesaria
+    //Funciï¿½n que retorna verdadero o falso para verificar que contamos con la cantidad de tuercas necesaria
     //para realizar un proceso
     public bool CheckNuts(float nuts)
     {
@@ -103,26 +103,26 @@ public class GameManager : MonoBehaviour
         AlertUI.gameObject.SetActive(false);
     }
 
-    //Función que sirve para establecer los recursos que requiere construir una granja en la card
+    //Funciï¿½n que sirve para establecer los recursos que requiere construir una granja en la card
     public void SetFarmCardResource(float energyResource)
     {
         FarmEnergyCostUI.text = ((int)energyResource).ToString();
     }
 
-    //Función que sirve para establecer los recursos que requiere construir una mina en la card
+    //Funciï¿½n que sirve para establecer los recursos que requiere construir una mina en la card
     public void SetMineCardResource(float energyResource)
     {
         MineEnergyCostUI.text = ((int)energyResource).ToString();
     }
 
-    //Función que sirve para establecer los recursos que requiere construir un gimnasio en la card
+    //Funciï¿½n que sirve para establecer los recursos que requiere construir un gimnasio en la card
     public void SetGymCardResource(float energyResource, float nutsResource)
     {
         GymEnergyCostUI.text = ((int)energyResource).ToString();
         GymNutsCostUI.text = ((int)nutsResource).ToString();
     }
 
-    //Función pública para obtener la referencia a la base del jugador
+    //Funciï¿½n pï¿½blica para obtener la referencia a la base del jugador
     public Base GetBase()
     {
         return playerBase;
