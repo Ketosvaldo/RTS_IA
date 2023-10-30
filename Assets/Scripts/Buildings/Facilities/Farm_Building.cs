@@ -22,9 +22,7 @@ public class Farm_Building : Buildings
 
     public override void StatUPG()
     {
-        if(!myBase)
-            myBase = GameObject.FindGameObjectWithTag("MyBase");
-        myBase.GetComponent<Base>().FoodUpgrade(foodUpg);
+        GameManager.instance.GetBase().FoodUpgrade(foodUpg);
     }
 
     public override void Levels()

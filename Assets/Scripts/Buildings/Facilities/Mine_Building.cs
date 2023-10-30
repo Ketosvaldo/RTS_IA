@@ -20,9 +20,7 @@ public class Mine_Building : Buildings
 
     public override void StatUPG()
     {
-        if(!myBase)
-            myBase = GameObject.FindGameObjectWithTag("MyBase");
-        myBase.GetComponent<Base>().NutsUpgrade(nutsUpg);
+        GameManager.instance.GetBase().NutsUpgrade(nutsUpg);
     }
 
     public override void Levels()
