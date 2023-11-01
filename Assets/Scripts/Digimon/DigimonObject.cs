@@ -4,6 +4,7 @@ using UnityEngine;
 public class DigimonObject : MonoBehaviour
 {
     //Todas las props del Digimon a instanciar
+    public string digimonName;
     public float combatPoints;
     public float farmPoints;
     public float miningPoints;
@@ -12,6 +13,19 @@ public class DigimonObject : MonoBehaviour
     public int level;
     public float exp = 0;
     public float maxExp = 10;
+
+    Vector3 newPos;
+
+    bool move;
+    private void Update()
+    {
+        GameManager.instance.ConsumeFood(10 * Time.deltaTime);
+        if (!move)
+            return;
+        transform.position = Vector3.MoveTowards(transform.position, newPos, 0.2f);
+        if (transform.position == newPos)
+            move = false;
+    }
 
     //Función pública para establecer el sprite del Digimon
     public void SetSprite(Sprite sprite)
@@ -62,5 +76,21 @@ public class DigimonObject : MonoBehaviour
         combatPoints = type.GetCombat(combatPoints);
         farmPoints = type.GetFarming(farmPoints);
         miningPoints = type.GetMining(miningPoints);
+    }
+
+    public Sprite GetSprite()
+    {
+        return spriteRenderer.sprite;
+    }
+
+    public string GetName()
+    {
+        return digimonName;
+    }
+
+    public void MoveToTarget(Vector3 Position)
+    {
+        move = true;
+        newPos = Position;
     }
 }

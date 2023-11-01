@@ -16,6 +16,8 @@ public class Farm_Building : Buildings
 
     public override void LevelUpBuild()
     {
+        if (level == 4)
+            return;
         level += 1;
         Levels();
     }
@@ -43,7 +45,9 @@ public class Farm_Building : Buildings
             {
                 farmingDigimons[i] = digimonToAssign;
                 GameManager.instance.StartChildCoroutine(ActivateDelay(digimonToAssign));
-                return "Tu " + digimonToAssign.name + " ahora est� cosechando.";
+                Debug.Log(digimonToAssign.name);
+                Debug.Log(digimonToAssign.GetName());
+                return "Tu " + digimonToAssign.GetName() + " ahora esta cosechando.";
             }
         }
         return "No tienes espacio";
@@ -52,6 +56,7 @@ public class Farm_Building : Buildings
     public override IEnumerator ActivateDelay(DigimonObject trainedDigimon)
     {
         yield return new WaitForSeconds(delay);
+        GameManager.instance.ActivateAlert("Tu " + trainedDigimon.GetName() + " ha terminado :D");
         trainedDigimon.farmPoints += foodUpg;
         trainedDigimon.ExpGained(expEarned);
     }
@@ -79,5 +84,10 @@ public class Farm_Building : Buildings
     public override bool CanBuild()
     {
         return GameManager.instance.CheckEnergy(energyRequired);
+    }
+
+    public override int GetLevel()
+    {
+        return level;
     }
 }

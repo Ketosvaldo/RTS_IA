@@ -50,5 +50,7 @@ public class Build_Card : MonoBehaviour
             return;
         }
         BuildManager.Instance.SetBuildInfo(build);
+        SetBuilding(buildName);
+        SetSprite();
     }
 }

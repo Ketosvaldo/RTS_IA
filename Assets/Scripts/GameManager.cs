@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI MineEnergyCostUI;
     public TextMeshProUGUI GymEnergyCostUI;
     public TextMeshProUGUI GymNutsCostUI;
+    [Header("Lista de Digimon")]
+    public GameObject DigimonList;
     //Referencia de la base del jugador
     Base playerBase;
 
@@ -126,5 +128,15 @@ public class GameManager : MonoBehaviour
     public Base GetBase()
     {
         return playerBase;
+    }
+
+    public void SetDigimonList(bool state)
+    {
+        DigimonList.SetActive(state);
+    }
+
+    public void SetBuildToAssignDigimon(Build_Object build)
+    {
+        DigimonList.GetComponent<DigimonListActive>().buildToAssign = build;
     }
 }

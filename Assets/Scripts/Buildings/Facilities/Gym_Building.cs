@@ -40,6 +40,8 @@ public class Gym_Building : Buildings
 
     public override void LevelUpBuild()
     {
+        if (level == 4)
+            return;
         level += 1;
         Levels();
     }
@@ -80,5 +82,10 @@ public class Gym_Building : Buildings
     public override bool CanBuild()
     {
         return GameManager.instance.CheckEnergy(energyRequired) && GameManager.instance.CheckNuts(nutsRequired);
+    }
+
+    public override int GetLevel()
+    {
+        return level;
     }
 }

@@ -14,6 +14,8 @@ public class Mine_Building : Buildings
     float energyRequired = 30f;
     public override void LevelUpBuild()
     {
+        if (level == 4)
+            return;
         level += 1;
         Levels();
     }
@@ -76,5 +78,10 @@ public class Mine_Building : Buildings
     public override bool CanBuild()
     {
         return GameManager.instance.CheckEnergy(energyRequired);
+    }
+
+    public override int GetLevel()
+    {
+        return level;
     }
 }
