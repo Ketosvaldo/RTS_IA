@@ -5,6 +5,7 @@ public class DigimonButtons : MonoBehaviour
     public bool type;
     public bool close;
     public bool attack;
+    public bool evolve;
 
     public DigimonObject thisDigimon;
 
@@ -32,6 +33,10 @@ public class DigimonButtons : MonoBehaviour
         if (close)
         {
             transform.parent.gameObject.SetActive(false);
+            return;
+        }
+        if (evolve) 
+        {
             return;
         }
     }
