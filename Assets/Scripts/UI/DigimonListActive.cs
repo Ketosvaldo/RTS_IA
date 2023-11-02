@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Collections;
 
 public class DigimonListActive : MonoBehaviour
 {
@@ -19,13 +18,16 @@ public class DigimonListActive : MonoBehaviour
 
         foreach (DigimonObject digimon in digimonActives)
         {
-            GameObject newObject = Instantiate(containerDigimonActive, parentObjectList.transform, true);
-            GameObject child1 = newObject.transform.GetChild(0).gameObject;
-            GameObject child2 = newObject.transform.GetChild(1).gameObject;
-            AssignDigimonButton props = newObject.GetComponent<AssignDigimonButton>();
-            props.SetDigimonObject(digimon);
-            child1.GetComponent<Image>().sprite = digimon.GetSprite();
-            child2.GetComponent<TextMeshProUGUI>().text = digimon.name;
+            if (!digimon.IsBusy())
+            {
+                GameObject newObject = Instantiate(containerDigimonActive, parentObjectList.transform, true);
+                GameObject child1 = newObject.transform.GetChild(0).gameObject;
+                GameObject child2 = newObject.transform.GetChild(1).gameObject;
+                AssignDigimonButton props = newObject.GetComponent<AssignDigimonButton>();
+                props.SetDigimonObject(digimon);
+                child1.GetComponent<Image>().sprite = digimon.GetSprite();
+                child2.GetComponent<TextMeshProUGUI>().text = digimon.name;
+            }
         }
     }
 

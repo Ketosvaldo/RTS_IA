@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class Mine_Building : Buildings
 {
-    GameObject myBase;
     int level = 1;
     float delay = 30;
     float nutsUpg = 3;
+    float expEarned = 2;
     DigimonObject[] miningDigimon = new DigimonObject[2];
     Sprite sprite;
     float energyRequired = 30f;
@@ -29,30 +29,37 @@ public class Mine_Building : Buildings
     {
         switch (level)
         {
-            case 2: delay = 45; nutsUpg = 3; miningDigimon = new DigimonObject[4] { miningDigimon[0], miningDigimon[1], null, null }; break;
-            case 3: delay = 60; nutsUpg = 6; miningDigimon = new DigimonObject[6] { miningDigimon[0], miningDigimon[1], miningDigimon[2], miningDigimon[3], null, null }; break;
-            case 4: delay = 75; nutsUpg = 12; miningDigimon = new DigimonObject[8] { miningDigimon[0], miningDigimon[1], miningDigimon[2], miningDigimon[3], miningDigimon[4], miningDigimon[5], null, null }; break;
+            case 2: delay = 45; nutsUpg = 3; expEarned = 4; miningDigimon = new DigimonObject[4] { miningDigimon[0], miningDigimon[1], null, null }; break;
+            case 3: delay = 60; nutsUpg = 6; expEarned = 8; miningDigimon = new DigimonObject[6] { miningDigimon[0], miningDigimon[1], miningDigimon[2], miningDigimon[3], null, null }; break;
+            case 4: delay = 75; nutsUpg = 12; expEarned = 12; miningDigimon = new DigimonObject[8] { miningDigimon[0], miningDigimon[1], miningDigimon[2], miningDigimon[3], miningDigimon[4], miningDigimon[5], null, null }; break;
         }
         StatUPG();
     }
 
     public override string AssignDigimon(DigimonObject digimonToAssign)
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < miningDigimon.Length; i++)
         {
             if (miningDigimon[i] == null)
             {
                 miningDigimon[i] = digimonToAssign;
-                GameManager.instance.StartChildCoroutine(ActivateDelay(digimonToAssign));
-                return "Tu " + digimonToAssign.name + " ahora est� minando.";
+                GameManager.instance.StartChildCoroutine(ActivateDelay(digimonToAssign, i));
+                GameManager.instance.GetBase().NutsUpgrade(digimonToAssign.miningPoints * 0.03f);
+                return "Tu " + digimonToAssign.name + " ahora esta minando.";
             }
         }
         return "No tienes espacio";
     }
 
-    public override IEnumerator ActivateDelay(DigimonObject trainedDigimon)
+    public override IEnumerator ActivateDelay(DigimonObject trainedDigimon, int arrayIndex)
     {
         yield return new WaitForSeconds(delay);
+        GameManager.instance.ActivateAlert("Tu " + trainedDigimon.GetName() + " ha terminado :D");
+        GameManager.instance.GetBase().NutsUpgrade(-trainedDigimon.miningPoints * 0.03f);
+        trainedDigimon.farmPoints += nutsUpg;
+        trainedDigimon.ExpGained(expEarned);
+        trainedDigimon.SetBusy(false);
+        miningDigimon[arrayIndex] = null;
     }
 
     public override void SetSprite(Sprite sprite)

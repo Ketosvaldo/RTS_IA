@@ -6,7 +6,7 @@ public class Build_Object : MonoBehaviour
 {
     public Sprite sprite;
     //Variable para guardar el nivel de nuestra Build
-    public int level;
+    public int level = 1;
     
     Buildings build;
     public GameObject OptionsMenu;
@@ -26,7 +26,6 @@ public class Build_Object : MonoBehaviour
     {
         sprite = build.GetSprite();
         GetComponent<SpriteRenderer>().sprite = sprite;
-        build.StatUPG();
     }
 
     //Funci�n p�blica que sirve para aumentar el nivel del build

@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI GymNutsCostUI;
     [Header("Lista de Digimon")]
     public GameObject DigimonList;
+    [Header("Tipos de Digimon")]
+    public GameObject DigimonType;
     //Referencia de la base del jugador
     Base playerBase;
 
@@ -138,5 +140,11 @@ public class GameManager : MonoBehaviour
     public void SetBuildToAssignDigimon(Build_Object build)
     {
         DigimonList.GetComponent<DigimonListActive>().buildToAssign = build;
+    }
+    
+    public void SetDigimonTypeGO(bool state, DigimonObject _digimon)
+    {
+        DigimonType.SetActive(state);
+        DigimonType.GetComponent<SetDigimonType>().digimon = _digimon;
     }
 }

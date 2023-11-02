@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Farm_Building : Buildings
 {
-    GameObject myBase;
     float foodUpg = 1;
     int level = 1;
     DigimonObject[] farmingDigimons = new DigimonObject[2];
@@ -24,7 +23,11 @@ public class Farm_Building : Buildings
 
     public override void StatUPG()
     {
-        GameManager.instance.GetBase().FoodUpgrade(foodUpg);
+        foreach(DigimonObject digimon in farmingDigimons)
+        {
+            if(digimon != null)
+            GameManager.instance.GetBase().FoodUpgrade(digimon.farmPoints * 0.03f);
+        }
     }
 
     public override void Levels()
@@ -39,26 +42,29 @@ public class Farm_Building : Buildings
     }
     public override string AssignDigimon(DigimonObject digimonToAssign)
     {
-        for(int i = 0; i < 2; i++)
+        for(int i = 0; i < farmingDigimons.Length; i++)
         {
             if (farmingDigimons[i] == null)
             {
                 farmingDigimons[i] = digimonToAssign;
-                GameManager.instance.StartChildCoroutine(ActivateDelay(digimonToAssign));
-                Debug.Log(digimonToAssign.name);
-                Debug.Log(digimonToAssign.GetName());
+                GameManager.instance.StartChildCoroutine(ActivateDelay(digimonToAssign, i));
+                GameManager.instance.GetBase().FoodUpgrade(digimonToAssign.farmPoints * 0.03f);
+                farmingDigimons[i] = null;
                 return "Tu " + digimonToAssign.GetName() + " ahora esta cosechando.";
             }
         }
         return "No tienes espacio";
     }
 
-    public override IEnumerator ActivateDelay(DigimonObject trainedDigimon)
+    public override IEnumerator ActivateDelay(DigimonObject trainedDigimon, int arrayIndex)
     {
         yield return new WaitForSeconds(delay);
         GameManager.instance.ActivateAlert("Tu " + trainedDigimon.GetName() + " ha terminado :D");
+        GameManager.instance.GetBase().FoodUpgrade(-trainedDigimon.farmPoints * 0.03f);
         trainedDigimon.farmPoints += foodUpg;
         trainedDigimon.ExpGained(expEarned);
+        trainedDigimon.SetBusy(false);
+        farmingDigimons[arrayIndex] = null;
     }
 
     public override void SetSprite(Sprite sprite)
