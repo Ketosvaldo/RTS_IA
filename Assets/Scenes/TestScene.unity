@@ -20930,6 +20930,9 @@ MonoBehaviour:
   DigimonName: Palmon
   sprite: {fileID: 0}
   DigimonGO: {fileID: 4497041430712613414, guid: cd6217205862641419342c8f86cd20ec, type: 3}
+  evolutionSprite:
+  - {fileID: 21300000, guid: c7c9fa3efc13d744d921c9fcb36db654, type: 3}
+  - {fileID: 21300000, guid: a27263620e8291c4aac6cffc424cf27f, type: 3}
 --- !u!114 &599795087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29987,6 +29990,9 @@ MonoBehaviour:
   DigimonName: Tentomon
   sprite: {fileID: 0}
   DigimonGO: {fileID: 4497041430712613414, guid: cd6217205862641419342c8f86cd20ec, type: 3}
+  evolutionSprite:
+  - {fileID: 21300000, guid: 48d77eab8cf98314aa2e98a57e957e38, type: 3}
+  - {fileID: 21300000, guid: 492e11861be9da94f8aa78d1dea4daf9, type: 3}
 --- !u!114 &859322713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54997,6 +55003,9 @@ MonoBehaviour:
   DigimonName: Agumon
   sprite: {fileID: 0}
   DigimonGO: {fileID: 4497041430712613414, guid: cd6217205862641419342c8f86cd20ec, type: 3}
+  evolutionSprite:
+  - {fileID: 21300000, guid: 55c4173f2155acb4895d5b5a3f36adeb, type: 3}
+  - {fileID: 21300000, guid: f0dc79c7f5bfcca42a579ca3b9935279, type: 3}
 --- !u!114 &1487102293
 MonoBehaviour:
   m_ObjectHideFlags: 0

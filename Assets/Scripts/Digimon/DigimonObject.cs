@@ -13,6 +13,11 @@ public class DigimonObject : MonoBehaviour
     public int level;
     public float exp = 0;
     public float maxExp = 10;
+    [SerializeField]
+    int evolution;
+    public float consumeFood;
+
+    public Sprite[] digimonEvolutions;
 
     public GameObject OptionsMenu;
 
@@ -22,7 +27,7 @@ public class DigimonObject : MonoBehaviour
     bool move;
     private void Update()
     {
-        GameManager.instance.ConsumeFood(0.5f * Time.deltaTime);
+        GameManager.instance.ConsumeFood(consumeFood * Time.deltaTime);
         if (!move)
             return;
         transform.position = Vector3.MoveTowards(transform.position, newPos, 0.2f);
@@ -35,6 +40,8 @@ public class DigimonObject : MonoBehaviour
         level = 1;
         exp = 0;
         maxExp = 10;
+        evolution = 1;
+        consumeFood = 0.5f;
     }
 
     private void OnMouseDown()
@@ -170,5 +177,32 @@ public class DigimonObject : MonoBehaviour
                 miningPoints += 4;
                 break;
         }
+    }
+
+    public bool CanEvolve()
+    {
+        return level >= 8;
+    }
+
+    public void Evolve()
+    {
+        if (evolution == 3)
+        {
+            GameManager.instance.ActivateAlert("Este digimon está en su mayor etapa");
+            return;
+        }
+        evolution += 1;
+        farmPoints *= 2;
+        combatPoints *= 2;
+        miningPoints *= 2;
+        consumeFood *= 2.5f;
+        SetSprite(digimonEvolutions[evolution - 2]);
+        ResetStats();
+    }
+
+    void ResetStats()
+    {
+        exp = 0;
+        level = 1;
     }
 }

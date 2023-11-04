@@ -1,4 +1,5 @@
 /*Clase creada para establecer la info del character*/
+
 public class Agumon_Character : DigimonCharacters
 {
     public Agumon_Character()

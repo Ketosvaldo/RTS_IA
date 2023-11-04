@@ -12,6 +12,9 @@ public class DigimonCards : MonoBehaviour
     public Sprite sprite;
 
     public GameObject DigimonGO;
+
+    [SerializeField]
+    Sprite[] evolutionSprite = new Sprite[2];
     void Start()
     {
         childObject = transform.GetChild(0).gameObject;
@@ -48,5 +51,7 @@ public class DigimonCards : MonoBehaviour
         props.digimonName = character.name;
         props.SetSprite(sprite);
         DigiObject.name = character.name;
+        props.digimonEvolutions[0] = evolutionSprite[0];
+        props.digimonEvolutions[1] = evolutionSprite[1];
     }
 }

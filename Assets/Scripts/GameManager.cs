@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         playerBase = GameObject.FindGameObjectWithTag("MyBase").GetComponent<Base>();
+        Application.targetFrameRate = 60;
     }
 
     //Funci�n p�blica para iniciar una Corrutina desde scripts que no heredan de Monobehaviour

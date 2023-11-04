@@ -11,7 +11,7 @@ public class DigimonButtons : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!type && !close && !attack)
+        if (!type && !close && !attack && !evolve)
             return;
         if (type)
         {
@@ -37,6 +37,13 @@ public class DigimonButtons : MonoBehaviour
         }
         if (evolve) 
         {
+            Debug.Log("xd");
+            if (!thisDigimon.CanEvolve())
+            {
+                GameManager.instance.ActivateAlert("Necesita ser nivel 8 mínimo");
+                return;
+            }
+            thisDigimon.Evolve();
             return;
         }
     }
