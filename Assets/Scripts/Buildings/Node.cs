@@ -21,6 +21,7 @@ public class Node : MonoBehaviour
             return;
         }
         GameObject newBuild = Instantiate(BuildManager.Instance.GetPrefab(), new Vector3(transform.position.x, transform.position.y + 1.7f, transform.position.z), Quaternion.identity);
+        newBuild.tag = "BuildAlly";
         newBuild.transform.Rotate(new Vector3(60, 0, 0));
         Build_Object props = newBuild.GetComponent<Build_Object>();
         props.SetBuild(BuildManager.Instance.GetBuildInfo());

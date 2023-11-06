@@ -6,11 +6,13 @@ public class Base : MonoBehaviour
     //Propiedades de la base al iniciar el juego
     float health = 1000;
     float nrg = 40;
-    float nrgprscnd = 1;
+    public float nrgprscnd = 1;
     float food = 10;
-    float foodprscnd = 0;
+    public float foodprscnd = 0;
     float nuts = 0;
-    float nutsprscnd = 0;
+    public float nutsprscnd = 0;
+
+    [SerializeField] private bool isEnemy;
     
     //GameObject que despliega un menú para utilizar funciones de la base
     public GameObject Menu;
@@ -103,5 +105,29 @@ public class Base : MonoBehaviour
     public void SetFood(float food)
     {
         this.food = food;
+    }
+
+    public float GetConsumeFood()
+    {
+        float totalFood = 0;
+        
+        if (isEnemy)
+        {
+            DigimonAI[] digimons = FindObjectsOfType<DigimonAI>();
+            foreach (DigimonAI digi in digimons)
+            {
+                totalFood += digi.consumeFood;
+            }
+        }
+        else
+        {
+            DigimonObject[] digimons = FindObjectsOfType<DigimonObject>();
+            foreach (DigimonObject digi in digimons)
+            {
+                totalFood += digi.consumeFood;
+            }
+        }
+        
+        return totalFood;
     }
 }

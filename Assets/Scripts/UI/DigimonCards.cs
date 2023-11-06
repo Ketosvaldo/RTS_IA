@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-//Esta clase sirve para las cards en UI de cada Digimon, lo importante aquí es escribir el nombre del Digimon
+//Esta clase sirve para las cards en UI de cada Digimon, lo importante aquï¿½ es escribir el nombre del Digimon
 
 public class DigimonCards : MonoBehaviour
 {
@@ -51,6 +51,7 @@ public class DigimonCards : MonoBehaviour
         props.digimonName = character.name;
         props.SetSprite(sprite);
         DigiObject.name = character.name;
+        DigiObject.tag = "DigimonAlly";
         props.digimonEvolutions[0] = evolutionSprite[0];
         props.digimonEvolutions[1] = evolutionSprite[1];
     }

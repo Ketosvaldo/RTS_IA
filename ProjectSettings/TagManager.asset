@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - MyBase
+  - EnemyBase
+  - BuildAlly
+  - BuildEnemy
+  - DigimonAlly
+  - DigimonEnemy
   layers:
   - Default
   - TransparentFX

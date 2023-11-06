@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0040883194, g: 0.00022368788, b: 0.000000057233287, a: 1}
+  m_IndirectSpecularColor: {r: 0.004088328, g: 0.00022368833, b: 0.000000057233287, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6682,7 +6682,7 @@ GameObject:
   - component: {fileID: 199627774}
   m_Layer: 0
   m_Name: EnemyBase
-  m_TagString: Untagged
+  m_TagString: EnemyBase
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6788,6 +6788,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c76f94fe4e9b834890678098e9263e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nrgprscnd: 1
+  foodprscnd: 0
+  nutsprscnd: 0
+  isEnemy: 0
   Menu: {fileID: 232204002}
 --- !u!1001 &200022195
 PrefabInstance:
@@ -68568,6 +68572,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c76f94fe4e9b834890678098e9263e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nrgprscnd: 1
+  foodprscnd: 0
+  nutsprscnd: 0
+  isEnemy: 0
   Menu: {fileID: 1623440644}
 --- !u!1 &1797365470 stripped
 GameObject:
