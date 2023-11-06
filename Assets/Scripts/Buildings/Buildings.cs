@@ -25,4 +25,6 @@ public abstract class Buildings
     //Funcion que establece la cantidad de recursos que requiere la build a construir
     public abstract void SetCardResource();
     public abstract int GetLevel();
+    public abstract void DamageHandler(float damage);
+    public abstract bool IsDeath();
 }

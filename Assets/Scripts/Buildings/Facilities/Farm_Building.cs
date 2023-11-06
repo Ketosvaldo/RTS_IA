@@ -12,6 +12,8 @@ public class Farm_Building : Buildings
     float expEarned = 2;
     float energyRequired = 20f;
     Sprite buildSprite;
+    float health = 1000;
+    bool isDeath;
 
     public override void LevelUpBuild()
     {
@@ -34,9 +36,9 @@ public class Farm_Building : Buildings
     {
         switch (level)
         {
-            case 2: delay = 45; expEarned = 4; foodUpg += 1; farmingDigimons = new DigimonObject[4] { farmingDigimons[0], farmingDigimons[1], null, null }; break;
-            case 3: delay = 60; expEarned = 8; foodUpg += 2; farmingDigimons = new DigimonObject[6] { farmingDigimons[0], farmingDigimons[1], farmingDigimons[2], farmingDigimons[3], null, null }; break;
-            case 4: delay = 80; expEarned = 12; foodUpg += 4; farmingDigimons = new DigimonObject[8] { farmingDigimons[0], farmingDigimons[1], farmingDigimons[2], farmingDigimons[3], farmingDigimons[4], farmingDigimons[5], null, null }; break;
+            case 2: health = 2000; delay = 45; expEarned = 4; foodUpg += 1; farmingDigimons = new DigimonObject[4] { farmingDigimons[0], farmingDigimons[1], null, null }; break;
+            case 3: health = 4000; delay = 60; expEarned = 8; foodUpg += 2; farmingDigimons = new DigimonObject[6] { farmingDigimons[0], farmingDigimons[1], farmingDigimons[2], farmingDigimons[3], null, null }; break;
+            case 4: health = 8000; delay = 80; expEarned = 12; foodUpg += 4; farmingDigimons = new DigimonObject[8] { farmingDigimons[0], farmingDigimons[1], farmingDigimons[2], farmingDigimons[3], farmingDigimons[4], farmingDigimons[5], null, null }; break;
         }
         StatUPG();
     }
@@ -95,5 +97,17 @@ public class Farm_Building : Buildings
     public override int GetLevel()
     {
         return level;
+    }
+
+    public override void DamageHandler(float damage)
+    {
+        health -= damage;
+        if (health <= 0)
+            isDeath = true;
+    }
+
+    public override bool IsDeath()
+    {
+        return isDeath;
     }
 }

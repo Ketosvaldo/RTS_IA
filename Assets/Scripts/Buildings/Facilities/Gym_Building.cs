@@ -13,6 +13,8 @@ public class Gym_Building : Buildings
     float energyRequired = 30f;
     float nutsRequired = 15;
     Sprite sprite;
+    float health = 500;
+    bool isDeath;
 
     public override string AssignDigimon(DigimonObject digimonToAssign)
     {
@@ -32,9 +34,9 @@ public class Gym_Building : Buildings
     {
         switch (level)
         {
-            case 2: expEarned = 3; delay = 40; combatUpg += 3; trainingDigimons = new DigimonObject[4] { trainingDigimons[0], trainingDigimons[1], null, null }; break;
-            case 3: expEarned = 5; delay = 40; combatUpg += 6; trainingDigimons = new DigimonObject[6] { trainingDigimons[0], trainingDigimons[1], trainingDigimons[2], trainingDigimons[3], null, null }; break;
-            case 4: expEarned = 8; delay = 40; combatUpg += 12; trainingDigimons = new DigimonObject[8] { trainingDigimons[0], trainingDigimons[1], trainingDigimons[2], trainingDigimons[3], trainingDigimons[4], trainingDigimons[5], null, null }; break;
+            case 2: health = 1000; expEarned = 3; delay = 40; combatUpg += 3; trainingDigimons = new DigimonObject[4] { trainingDigimons[0], trainingDigimons[1], null, null }; break;
+            case 3: health = 2000; expEarned = 5; delay = 40; combatUpg += 6; trainingDigimons = new DigimonObject[6] { trainingDigimons[0], trainingDigimons[1], trainingDigimons[2], trainingDigimons[3], null, null }; break;
+            case 4: health = 4000; expEarned = 8; delay = 40; combatUpg += 12; trainingDigimons = new DigimonObject[8] { trainingDigimons[0], trainingDigimons[1], trainingDigimons[2], trainingDigimons[3], trainingDigimons[4], trainingDigimons[5], null, null }; break;
         }
     }
 
@@ -90,5 +92,17 @@ public class Gym_Building : Buildings
     public override int GetLevel()
     {
         return level;
+    }
+
+    public override void DamageHandler(float damage)
+    {
+        health -= damage;
+        if (health <= 0)
+            isDeath = true;
+    }
+
+    public override bool IsDeath()
+    {
+        return isDeath;
     }
 }

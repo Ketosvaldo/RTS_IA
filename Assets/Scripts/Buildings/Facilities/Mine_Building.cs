@@ -12,6 +12,9 @@ public class Mine_Building : Buildings
     DigimonObject[] miningDigimon = new DigimonObject[2];
     Sprite sprite;
     float energyRequired = 30f;
+    float health = 700;
+    bool isDeath;
+
     public override void LevelUpBuild()
     {
         if (level == 4)
@@ -29,9 +32,9 @@ public class Mine_Building : Buildings
     {
         switch (level)
         {
-            case 2: delay = 45; nutsUpg = 3; expEarned = 4; miningDigimon = new DigimonObject[4] { miningDigimon[0], miningDigimon[1], null, null }; break;
-            case 3: delay = 60; nutsUpg = 6; expEarned = 8; miningDigimon = new DigimonObject[6] { miningDigimon[0], miningDigimon[1], miningDigimon[2], miningDigimon[3], null, null }; break;
-            case 4: delay = 75; nutsUpg = 12; expEarned = 12; miningDigimon = new DigimonObject[8] { miningDigimon[0], miningDigimon[1], miningDigimon[2], miningDigimon[3], miningDigimon[4], miningDigimon[5], null, null }; break;
+            case 2: health = 1400; delay = 45; nutsUpg = 3; expEarned = 4; miningDigimon = new DigimonObject[4] { miningDigimon[0], miningDigimon[1], null, null }; break;
+            case 3: health = 2800; delay = 60; nutsUpg = 6; expEarned = 8; miningDigimon = new DigimonObject[6] { miningDigimon[0], miningDigimon[1], miningDigimon[2], miningDigimon[3], null, null }; break;
+            case 4: health = 5600; delay = 75; nutsUpg = 12; expEarned = 12; miningDigimon = new DigimonObject[8] { miningDigimon[0], miningDigimon[1], miningDigimon[2], miningDigimon[3], miningDigimon[4], miningDigimon[5], null, null }; break;
         }
         StatUPG();
     }
@@ -90,5 +93,17 @@ public class Mine_Building : Buildings
     public override int GetLevel()
     {
         return level;
+    }
+
+    public override void DamageHandler(float damage)
+    {
+        health -= damage;
+        if (health <= 0)
+            isDeath = true;
+    }
+
+    public override bool IsDeath()
+    {
+        return isDeath;
     }
 }

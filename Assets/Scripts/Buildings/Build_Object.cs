@@ -45,4 +45,11 @@ public class Build_Object : MonoBehaviour
     {
         GameManager.instance.ActivateAlert(build.AssignDigimon(digimonToAssign));
     }
+
+    public void MakeDamage(float damage)
+    {
+        build.DamageHandler(damage);
+        if (build.IsDeath())
+            Destroy(gameObject);
+    }
 }
