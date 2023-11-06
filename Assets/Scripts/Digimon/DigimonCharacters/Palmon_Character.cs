@@ -7,5 +7,6 @@ public class Palmon_Character : DigimonCharacters
         combatPoints = 15;
         miningPoints = 15;
         farmPoints = 30;
+        DigiCost = 40;
     }
 }

@@ -7,5 +7,6 @@ public class Tentomon_Character : DigimonCharacters
         combatPoints = 15;
         miningPoints = 30;
         farmPoints = 10;
+        DigiCost = 60;
     }
 }

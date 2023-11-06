@@ -41,6 +41,12 @@ public class DigimonCards : MonoBehaviour
     public void SpawnDigimon()
     {
         Debug.Log("Estoy creando a: " + character.name);
+        if (!GameManager.instance.CheckEnergy(character.DigiCost))
+        {
+            GameManager.instance.ActivateAlert("No te alcanza pa");
+            return;
+        }
+        GameManager.instance.ConsumeEnergy(character.DigiCost);
         Vector3 position = GameManager.instance.GetBase().transform.position;
         GameObject DigiObject = Instantiate(DigimonGO, new Vector3(position.x, position.y + 2, position.z), Quaternion.identity);
         DigiObject.transform.Rotate(new Vector3(60, 0, 0));
