@@ -10,7 +10,9 @@ public class Build_Object : MonoBehaviour
     public int level = 1;
     public float vida;
     public Slider slider;
-    public Gradient gradient;
+    public Gradient gradien;
+    public Color color;
+    public Image Fill;
     
     
     Buildings build;
@@ -22,6 +24,7 @@ public class Build_Object : MonoBehaviour
         SetObjectProps();
         slider.maxValue = GetHealth();
         slider.value = GetHealth();
+       // Fill.color = color;
     }
 
     void Update()
