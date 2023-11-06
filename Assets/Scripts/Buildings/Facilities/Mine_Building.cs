@@ -14,29 +14,38 @@ public class Mine_Building : Buildings
     float energyRequired = 30f;
     float health = 700;
     bool isDeath;
+    float nutsCost = 100;
 
     public override void LevelUpBuild()
     {
+        if (!GameManager.instance.CheckNuts(nutsCost))
+        {
+            GameManager.instance.ActivateAlert("No te alcanza pa ");
+            return;
+        }
+
         if (level == 4)
             return;
         level += 1;
+        GameManager.instance.ConsumeNuts(nutsCost);
+
         Levels();
     }
 
     public override void StatUPG()
     {
-        GameManager.instance.GetBase().NutsUpgrade(nutsUpg);
+        //GameManager.instance.GetBase().NutsUpgrade(nutsUpg);
     }
 
     public override void Levels()
     {
         switch (level)
         {
-            case 2: health = 1400; delay = 45; nutsUpg = 3; expEarned = 4; miningDigimon = new DigimonObject[4] { miningDigimon[0], miningDigimon[1], null, null }; break;
-            case 3: health = 2800; delay = 60; nutsUpg = 6; expEarned = 8; miningDigimon = new DigimonObject[6] { miningDigimon[0], miningDigimon[1], miningDigimon[2], miningDigimon[3], null, null }; break;
+            case 2: nutsCost = 300; health = 1400; delay = 45; nutsUpg = 3; expEarned = 4; miningDigimon = new DigimonObject[4] { miningDigimon[0], miningDigimon[1], null, null }; break;
+            case 3: nutsCost = 700; health = 2800; delay = 60; nutsUpg = 6; expEarned = 8; miningDigimon = new DigimonObject[6] { miningDigimon[0], miningDigimon[1], miningDigimon[2], miningDigimon[3], null, null }; break;
             case 4: health = 5600; delay = 75; nutsUpg = 12; expEarned = 12; miningDigimon = new DigimonObject[8] { miningDigimon[0], miningDigimon[1], miningDigimon[2], miningDigimon[3], miningDigimon[4], miningDigimon[5], null, null }; break;
         }
-        StatUPG();
+        //StatUPG();
     }
 
     public override string AssignDigimon(DigimonObject digimonToAssign)
@@ -47,7 +56,7 @@ public class Mine_Building : Buildings
             {
                 miningDigimon[i] = digimonToAssign;
                 GameManager.instance.StartChildCoroutine(ActivateDelay(digimonToAssign, i));
-                GameManager.instance.GetBase().NutsUpgrade(digimonToAssign.miningPoints * 0.03f);
+                GameManager.instance.GetBase().NutsUpgrade(digimonToAssign.miningPoints * 0.03f * nutsUpg);
                 return "Tu " + digimonToAssign.name + " ahora esta minando.";
             }
         }

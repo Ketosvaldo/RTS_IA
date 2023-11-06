@@ -15,6 +15,8 @@ public class Gym_Building : Buildings
     Sprite sprite;
     float health = 500;
     bool isDeath;
+    float nutsCost = 200;
+    
 
     public override string AssignDigimon(DigimonObject digimonToAssign)
     {
@@ -34,17 +36,25 @@ public class Gym_Building : Buildings
     {
         switch (level)
         {
-            case 2: health = 1000; expEarned = 3; delay = 40; combatUpg += 3; trainingDigimons = new DigimonObject[4] { trainingDigimons[0], trainingDigimons[1], null, null }; break;
-            case 3: health = 2000; expEarned = 5; delay = 40; combatUpg += 6; trainingDigimons = new DigimonObject[6] { trainingDigimons[0], trainingDigimons[1], trainingDigimons[2], trainingDigimons[3], null, null }; break;
+            case 2: nutsCost = 400; health = 1000; expEarned = 3; delay = 40; combatUpg += 3; trainingDigimons = new DigimonObject[4] { trainingDigimons[0], trainingDigimons[1], null, null }; break;
+            case 3: nutsCost = 700;health = 2000; expEarned = 5; delay = 40; combatUpg += 6; trainingDigimons = new DigimonObject[6] { trainingDigimons[0], trainingDigimons[1], trainingDigimons[2], trainingDigimons[3], null, null }; break;
             case 4: health = 4000; expEarned = 8; delay = 40; combatUpg += 12; trainingDigimons = new DigimonObject[8] { trainingDigimons[0], trainingDigimons[1], trainingDigimons[2], trainingDigimons[3], trainingDigimons[4], trainingDigimons[5], null, null }; break;
         }
     }
 
     public override void LevelUpBuild()
     {
+        if (!GameManager.instance.CheckNuts(nutsCost))
+        {
+            GameManager.instance.ActivateAlert("No te alcanza pa ");
+            return;
+        }
+
         if (level == 4)
             return;
         level += 1;
+        GameManager.instance.ConsumeNuts(nutsCost);
+
         Levels();
     }
 

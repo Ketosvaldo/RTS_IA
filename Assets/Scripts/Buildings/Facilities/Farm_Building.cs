@@ -14,12 +14,21 @@ public class Farm_Building : Buildings
     Sprite buildSprite;
     float health = 1000;
     bool isDeath;
+    float nutsCost = 50;
 
     public override void LevelUpBuild()
     {
+        if (!GameManager.instance.CheckNuts(nutsCost))
+        {
+            GameManager.instance.ActivateAlert("No te alcanza pa ");
+            return;
+        }
+          
         if (level == 4)
             return;
         level += 1;
+        GameManager.instance.ConsumeNuts(nutsCost);
+        
         Levels();
     }
 
@@ -36,8 +45,8 @@ public class Farm_Building : Buildings
     {
         switch (level)
         {
-            case 2: health = 2000; delay = 45; expEarned = 4; foodUpg += 1; farmingDigimons = new DigimonObject[4] { farmingDigimons[0], farmingDigimons[1], null, null }; break;
-            case 3: health = 4000; delay = 60; expEarned = 8; foodUpg += 2; farmingDigimons = new DigimonObject[6] { farmingDigimons[0], farmingDigimons[1], farmingDigimons[2], farmingDigimons[3], null, null }; break;
+            case 2: nutsCost = 150; health = 2000; delay = 45; expEarned = 4; foodUpg += 1; farmingDigimons = new DigimonObject[4] { farmingDigimons[0], farmingDigimons[1], null, null }; break;
+            case 3: nutsCost = 400; health = 4000; delay = 60; expEarned = 8; foodUpg += 2; farmingDigimons = new DigimonObject[6] { farmingDigimons[0], farmingDigimons[1], farmingDigimons[2], farmingDigimons[3], null, null }; break;
             case 4: health = 8000; delay = 80; expEarned = 12; foodUpg += 4; farmingDigimons = new DigimonObject[8] { farmingDigimons[0], farmingDigimons[1], farmingDigimons[2], farmingDigimons[3], farmingDigimons[4], farmingDigimons[5], null, null }; break;
         }
         StatUPG();
