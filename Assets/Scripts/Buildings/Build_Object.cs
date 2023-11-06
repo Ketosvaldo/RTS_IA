@@ -1,6 +1,6 @@
 using UnityEngine;
 
-/*Este ser� el objeto a instanciar in-game seg�n la build elegida*/
+/*Este sera el objeto a instanciar in-game segun la build elegida*/
 
 public class Build_Object : MonoBehaviour
 {
@@ -10,7 +10,7 @@ public class Build_Object : MonoBehaviour
     
     Buildings build;
     public GameObject OptionsMenu;
-    //Funci�n p�blica que sirve para establecer las props del build elegido.
+    //Funcion publica que sirve para establecer las props del build elegido.
     public void SetBuild(Buildings newBuild)
     {
         build = newBuild;
@@ -28,7 +28,7 @@ public class Build_Object : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = sprite;
     }
 
-    //Funci�n p�blica que sirve para aumentar el nivel del build
+    //Funcion publica que sirve para aumentar el nivel del build
     public void LevelUpBuild()
     {
         if(build.GetLevel() == 4)
@@ -40,7 +40,7 @@ public class Build_Object : MonoBehaviour
         level = build.GetLevel();
     }
 
-    //Funci�n p�blica que sirve para asignar a un Digimon a dicha build
+    //Funcion publica que sirve para asignar a un Digimon a dicha build
     public void AssignDigimon(DigimonObject digimonToAssign)
     {
         GameManager.instance.ActivateAlert(build.AssignDigimon(digimonToAssign));
@@ -51,5 +51,10 @@ public class Build_Object : MonoBehaviour
         build.DamageHandler(damage);
         if (build.IsDeath())
             Destroy(gameObject);
+    }
+
+    public float GetHealth()
+    {
+        return build.GetHealth();
     }
 }

@@ -106,4 +106,9 @@ public class Mine_Building : Buildings
     {
         return isDeath;
     }
+
+    public override float GetHealth()
+    {
+        return health;
+    }
 }

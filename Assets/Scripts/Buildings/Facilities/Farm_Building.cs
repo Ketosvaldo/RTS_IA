@@ -110,4 +110,9 @@ public class Farm_Building : Buildings
     {
         return isDeath;
     }
+    
+    public override float GetHealth()
+    {
+        return health;
+    }
 }

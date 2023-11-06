@@ -27,4 +27,5 @@ public abstract class Buildings
     public abstract int GetLevel();
     public abstract void DamageHandler(float damage);
     public abstract bool IsDeath();
+    public abstract float GetHealth();
 }
