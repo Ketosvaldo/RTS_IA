@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 /*Este sera el objeto a instanciar in-game segun la build elegida*/
 
@@ -7,6 +8,10 @@ public class Build_Object : MonoBehaviour
     public Sprite sprite;
     //Variable para guardar el nivel de nuestra Build
     public int level = 1;
+    public float vida;
+    public Slider slider;
+    public Gradient gradient;
+    
     
     Buildings build;
     public GameObject OptionsMenu;
@@ -15,6 +20,25 @@ public class Build_Object : MonoBehaviour
     {
         build = newBuild;
         SetObjectProps();
+        slider.maxValue = GetHealth();
+        slider.value = GetHealth();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+
+            MakeDamage(25);
+        }
+
+        
+    }
+
+    public void SetHealth()
+    {
+
+        slider.value = build.GetHealth();
     }
 
     private void OnMouseDown()
@@ -49,6 +73,7 @@ public class Build_Object : MonoBehaviour
     public void MakeDamage(float damage)
     {
         build.DamageHandler(damage);
+        SetHealth();
         if (build.IsDeath())
             Destroy(gameObject);
     }
