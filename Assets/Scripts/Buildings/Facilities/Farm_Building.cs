@@ -17,8 +17,13 @@ public class Farm_Building : Buildings
     bool isDeath;
     float nutsCost = 50;
 
-    public override void LevelUpBuild()
+    public override void LevelUpBuild(bool isEnemy = false)
     {
+        if (isEnemy)
+        {
+            if (!GameManager.instance.CheckNuts(nutsCost))
+                return;
+        }
         if (!GameManager.instance.CheckNuts(nutsCost))
         {
             GameManager.instance.ActivateAlert("No te alcanza pa ");

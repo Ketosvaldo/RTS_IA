@@ -117,8 +117,10 @@ public class GameManager : MonoBehaviour
 
     //Funci�n que retorna verdadero o falso para verificar que contamos con la cantidad de energ�a necesaria
     //para realizar un proceso
-    public bool CheckEnergy(float energy)
+    public bool CheckEnergy(float energy, bool isEnemy = false)
     {
+        if (isEnemy)
+            return enemyBase.GetEnergy() - energy > 0;
         return playerBase.GetEnergy() - energy > 0;
     }
 

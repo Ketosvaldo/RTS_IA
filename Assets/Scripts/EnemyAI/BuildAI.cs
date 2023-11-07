@@ -47,6 +47,7 @@ public class BuildAI : MonoBehaviour
                 if (!digimonsAI[i].IsBusy())
                 {
                     digimonsAI[i].SetBusy(true);
+                    digimonsAI[i].attack = false;
                     AssignDigimon(digimonsAI[i]);
                     Vector3 buildPos = transform.position;
                     digimonsAI[i].MoveToTarget(new Vector3(buildPos.x, buildPos.y + 0.01f, buildPos.z));
@@ -74,7 +75,7 @@ public class BuildAI : MonoBehaviour
         {
             return;
         }
-        build.LevelUpBuild();
+        build.LevelUpBuild(true);
         level = build.GetLevel();
     }
 

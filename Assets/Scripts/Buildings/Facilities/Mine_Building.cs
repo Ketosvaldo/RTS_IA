@@ -17,8 +17,13 @@ public class Mine_Building : Buildings
     bool isDeath;
     float nutsCost = 100;
 
-    public override void LevelUpBuild()
+    public override void LevelUpBuild(bool isEnemy = false)
     {
+        if (isEnemy)
+        {
+            if (!GameManager.instance.CheckNuts(nutsCost))
+                return;
+        }
         if (!GameManager.instance.CheckNuts(nutsCost))
         {
             GameManager.instance.ActivateAlert("No te alcanza pa ");
@@ -74,7 +79,7 @@ public class Mine_Building : Buildings
     {
         yield return new WaitForSeconds(delay);
         GameManager.instance.ActivateAlert("Tu " + trainedDigimon.GetName() + " ha terminado :D");
-        GameManager.instance.GetBase().NutsUpgrade(-trainedDigimon.miningPoints * 0.03f);
+        GameManager.instance.GetBase().NutsUpgrade(-trainedDigimon.miningPoints * 0.03f * nutsUpg);
         trainedDigimon.farmPoints += nutsUpg;
         trainedDigimon.ExpGained(expEarned);
         trainedDigimon.SetBusy(false);
@@ -84,7 +89,7 @@ public class Mine_Building : Buildings
     public override IEnumerator ActivateDelayAI(DigimonAI trainedDigimon, int arrayIndex)
     {
         yield return new WaitForSeconds(delay);
-        GameManager.instance.GetBase().NutsUpgrade(-trainedDigimon.miningPoints * 0.03f);
+        GameManager.instance.GetEnemyBase().NutsUpgrade(-trainedDigimon.miningPoints * 0.03f * nutsUpg);
         trainedDigimon.farmPoints += nutsUpg;
         trainedDigimon.ExpGained(expEarned);
         trainedDigimon.SetBusy(false);

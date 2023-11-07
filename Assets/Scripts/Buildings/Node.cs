@@ -31,6 +31,16 @@ public class Node : MonoBehaviour
         BuildManager.Instance.SetBuildInfo(null);
     }
 
+    public void SetFull(bool state)
+    {
+        full = state;
+    }
+
+    public bool GetFull()
+    {
+        return full;
+    }
+
     private void OnMouseEnter()
     {
         rend.material.color = hoverColor;

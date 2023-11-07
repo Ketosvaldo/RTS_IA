@@ -48,8 +48,13 @@ public class Gym_Building : Buildings
         }
     }
 
-    public override void LevelUpBuild()
+    public override void LevelUpBuild(bool isEnemy = false)
     {
+        if (isEnemy)
+        {
+            if (!GameManager.instance.CheckNuts(nutsCost))
+                return;
+        }
         if (!GameManager.instance.CheckNuts(nutsCost))
         {
             GameManager.instance.ActivateAlert("No te alcanza pa ");

@@ -9,47 +9,66 @@ public class EnemyManager : MonoBehaviour
     public GameObject digimonObject;
     public GameObject buildObject;
     public Sprite[] buildSprites;
+    public Sprite[] digimonSprites;
+    GameObject[] enemyNodes;
+    Node[] nodeEnemy;
     private void Start()
     {
         enemyBase = GetComponent<Base>();
         StartCoroutine(TakeDecision());
+        enemyNodes = GameObject.FindGameObjectsWithTag("EnemyNode");
+        nodeEnemy = new Node[enemyNodes.Length];
+        for(int i = 0; i < enemyNodes.Length; i++)
+        {
+            nodeEnemy[i] = enemyNodes[i].GetComponent<Node>();
+        }
     }
 
     IEnumerator TakeDecision()
     {
-        yield return new WaitForSeconds(5f);
-        float randomNum = Random.Range(0, 2);
-        switch (randomNum)
-        {
-            case 0: SpawnDigimon(); break;
-            case 1: SpawnBuild(); break;
-        }
+        yield return new WaitForSeconds(6f);
+        float randomNum = Random.Range(0, 10);
+        if (randomNum < 4)
+            SpawnDigimon();
+        else if (randomNum > 7)
+            SpawnBuild();
         StartCoroutine(TakeDecision());
     }
 
     void SpawnDigimon()
     {
-        Instantiate(digimonObject);
         DigimonCharacters character;
-        //Spawn Palmon
-        if (enemyBase.GetConsumeFood() > enemyBase.foodprscnd)
+        
+        int randomNum = Random.Range(0, 10);
+        Debug.Log(randomNum);
+        if (randomNum < 4)
         {
             character = new Palmon_Character();
+            character.SetSprite(digimonSprites[0]);
         }
-        //Spawn Tentomon
-        else if(enemyBase.GetNuts() < 100)
+        else if (randomNum > 3 && randomNum < 7)
         {
             character = new Tentomon_Character();
+            character.SetSprite(digimonSprites[1]);
         }
-        //Spawn Agumon
         else
         {
             character = new Agumon_Character();
+            character.SetSprite(digimonSprites[2]);
         }
-        DigimonAI props = digimonObject.GetComponent<DigimonAI>();
+
+        if (!GameManager.instance.CheckEnergy(character.DigiCost, true))
+            return;
+        GameManager.instance.ConsumeEnergy(character.DigiCost, true);
+        Vector3 pos = GameManager.instance.GetEnemyBase().transform.position;
+        GameObject newObject = Instantiate(digimonObject, new Vector3(pos.x, pos.y + 2, pos.z), Quaternion.identity);
+        Debug.Log("Es una Digimon");
+        newObject.transform.Rotate(new Vector3(60, 0, 0));
+        DigimonAI props = newObject.GetComponent<DigimonAI>();
         props.combatPoints = character.combatPoints;
         props.farmPoints = character.farmPoints;
         props.miningPoints = character.miningPoints;
+        props.SetSprite(character.GetSprite());
     }
 
     void SpawnBuild()
@@ -75,8 +94,22 @@ public class EnemyManager : MonoBehaviour
         }
         if (!build.CanBuild())
             return;
+        Vector3 pos = Vector3.zero;
+        foreach(Node node in nodeEnemy)
+        {
+            if (!node.GetFull())
+            {
+                node.SetFull(true);
+                pos = node.gameObject.transform.position;
+                break;
+            }
+        }
+        if (pos == Vector3.zero)
+            return;
         build.ConsumeResource(true);
-        GameObject newObject = Instantiate(buildObject);
+        GameObject newObject = Instantiate(buildObject, new Vector3(pos.x, pos.y + 2f, pos.z), Quaternion.identity);
+        Debug.Log("Es una build");
+        newObject.transform.Rotate(new Vector3(60, 0, 0));
         BuildAI props = newObject.GetComponent<BuildAI>();
         props.SetBuild(build);
         return;

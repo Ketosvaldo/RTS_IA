@@ -25,19 +25,26 @@ public class DigimonAI : MonoBehaviour
 
     bool move;
 
-    private bool attack;
+    public bool attack;
 
     GameObject[] DigimonAllies;
     GameObject[] BuildAllies;
+
+    Build_Object buildTarget;
     private void Update()
     {
-        GameManager.instance.ConsumeFood(consumeFood * Time.deltaTime);
+        GameManager.instance.ConsumeFood(consumeFood * Time.deltaTime, true);
         if (!move)
             return;
         transform.position = Vector3.MoveTowards(transform.position, newPos, 0.2f);
         if (transform.position == newPos)
         {
             move = false;
+            if (attack)
+            {
+                buildTarget.MakeDamage(combatPoints);
+                StartCoroutine(StartAttack());
+            }
         }
     }
 
@@ -59,48 +66,48 @@ public class DigimonAI : MonoBehaviour
         {
             DigimonAllies = GameObject.FindGameObjectsWithTag("DigimonAlly");
             BuildAllies = GameObject.FindGameObjectsWithTag("BuildAlly");
-            foreach (GameObject digimon in DigimonAllies)
+            if (DigimonAllies.Length != 0)
             {
-                if (!digimon)
-                    break;
-                float digimonPower = digimon.GetComponent<DigimonObject>().combatPoints;
-                if (combatPoints > digimonPower)
+                foreach (GameObject digimon in DigimonAllies)
                 {
-                    newPos = digimon.transform.position;
-                    move = true;
-                    attack = true;
-                    break;
-                }
-            }
-
-            GameObject targetBuild = new();
-            float distance = 0;
-            
-            foreach (GameObject build in BuildAllies)
-            {
-                if (!build)
-                    break;
-                if (distance == 0)
-                {
-                    distance = Vector3.Distance(transform.position, build.transform.position);
-                    targetBuild = build;
-                }
-                else
-                {
-                    float tempDistance = Vector3.Distance(transform.position, build.transform.position);
-                    if (distance > tempDistance)
+                    float digimonPower = digimon.GetComponent<DigimonObject>().combatPoints;
+                    if (combatPoints > digimonPower)
                     {
-                        distance = tempDistance;
-                        targetBuild = build;
+                        newPos = digimon.transform.position;
+                        move = true;
+                        attack = true;
+                        break;
                     }
                 }
             }
 
-            if (targetBuild)
+            if(BuildAllies.Length != 0)
             {
+                GameObject targetBuild = null;
+                float distance = 0;
+
+                foreach (GameObject build in BuildAllies)
+                {
+                    if (targetBuild == null)
+                    {
+                        distance = Vector3.Distance(transform.position, build.transform.position);
+                        targetBuild = build;
+                    }
+                    else
+                    {
+                        float tempDistance = Vector3.Distance(transform.position, build.transform.position);
+                        if (distance > tempDistance)
+                        {
+                            distance = tempDistance;
+                            targetBuild = build;
+                        }
+                    }
+                }
                 newPos = targetBuild.transform.position;
+                buildTarget = targetBuild.GetComponent<Build_Object>();
                 move = true;
                 attack = true;
+                SetBusy(true);
             }
         }
         StartCoroutine(TakeDecision());
@@ -261,5 +268,22 @@ public class DigimonAI : MonoBehaviour
     {
         exp = 0;
         level = 1;
+    }
+
+    IEnumerator StartAttack()
+    {
+        yield return new WaitForSeconds(2f);
+        if (attack)
+        {
+            if(buildTarget != null)
+            {
+                buildTarget.MakeDamage(combatPoints);
+                StartCoroutine(StartAttack());
+            }
+            else
+            {
+                attack = false;
+            }
+        }
     }
 }

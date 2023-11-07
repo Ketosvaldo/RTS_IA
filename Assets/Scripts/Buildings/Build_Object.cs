@@ -77,7 +77,7 @@ public class Build_Object : MonoBehaviour
     {
         build.DamageHandler(damage);
         SetHealth();
-        if (build.IsDeath())
+        if (build.IsDeath() && gameObject)
             Destroy(gameObject);
     }
 

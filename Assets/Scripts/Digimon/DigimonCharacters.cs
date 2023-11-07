@@ -14,4 +14,9 @@ public class DigimonCharacters
     {
         this.digiSprite = digiSprite;
     }
+
+    public Sprite GetSprite()
+    {
+        return digiSprite;
+    }
 }

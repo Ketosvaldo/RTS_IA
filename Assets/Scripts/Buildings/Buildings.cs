@@ -6,7 +6,7 @@ public abstract class Buildings
     //Funcion que sirve para mejorar los stats de los Digimon asignados
     public abstract void StatUPG();
     //Funcion que sirve para subir de nivel el build
-    public abstract void LevelUpBuild();
+    public abstract void LevelUpBuild(bool isEnemy = false);
     //Funcion que se llama cuando sube de nivel y establece los upgrades de la base
     public abstract void Levels();
     //Funcion de tipo booleano que retorna verdadero o falso para verificar si se puede construir la build
