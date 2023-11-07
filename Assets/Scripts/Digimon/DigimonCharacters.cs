@@ -8,6 +8,7 @@ public class DigimonCharacters
     public float farmPoints;
     public float miningPoints;
     public float DigiCost;
+    public float vida;
     Sprite digiSprite;
 
     public void SetSprite(Sprite digiSprite)

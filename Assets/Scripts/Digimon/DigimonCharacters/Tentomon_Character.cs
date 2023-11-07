@@ -8,5 +8,6 @@ public class Tentomon_Character : DigimonCharacters
         miningPoints = 30;
         farmPoints = 10;
         DigiCost = 60;
+        vida = 100;
     }
 }

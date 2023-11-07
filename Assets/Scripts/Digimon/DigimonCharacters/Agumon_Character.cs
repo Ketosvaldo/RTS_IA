@@ -9,5 +9,6 @@ public class Agumon_Character : DigimonCharacters
         miningPoints = 20;
         farmPoints = 14;
         DigiCost = 100;
+        vida = 100;
     }
 }
