@@ -8,5 +8,6 @@ public class Palmon_Character : DigimonCharacters
         miningPoints = 15;
         farmPoints = 30;
         DigiCost = 40;
+        vida = 100;
     }
 }
