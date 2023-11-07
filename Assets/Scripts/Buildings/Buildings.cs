@@ -12,12 +12,13 @@ public abstract class Buildings
     //Funcion de tipo booleano que retorna verdadero o falso para verificar si se puede construir la build
     public abstract bool CanBuild();
     //Funcion que consume los recursos necesarios para construir la build
-    public abstract void ConsumeResource();
+    public abstract void ConsumeResource(bool isEnemy = false);
     //Funcion que sirve para asignar un Digimon a la build
     public abstract string AssignDigimon(DigimonObject digimonToAssign);
     //IEnumerator que sirve para contar el tiempo a esperar hasta que los Digimon asignados terminen una
     //tarea, cuando la terminan, estos mejoran sus stats.
     public abstract IEnumerator ActivateDelay(DigimonObject trainedDigimon, int arrayIndex);
+    public abstract IEnumerator ActivateDelayAI(DigimonAI trainedDigimon, int arrayIndex);
     //Funcion que sirve para asignar el sprite de la Build
     public abstract void SetSprite(Sprite sprite);
     //Funcion que retorna el sprite de la build
@@ -28,4 +29,5 @@ public abstract class Buildings
     public abstract void DamageHandler(float damage);
     public abstract bool IsDeath();
     public abstract float GetHealth();
+    public abstract void AssignDigimon(DigimonAI digimonToAssign);
 }

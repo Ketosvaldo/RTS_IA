@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class GameManager : MonoBehaviour
 {
@@ -29,12 +30,14 @@ public class GameManager : MonoBehaviour
     public GameObject BuildList;
     //Referencia de la base del jugador
     Base playerBase;
+    Base enemyBase;
 
     //Al iniciar, obtendr� la referencia de la base del jugador en autom�tico.
     private void Awake()
     {
         instance = this;
         playerBase = GameObject.FindGameObjectWithTag("MyBase").GetComponent<Base>();
+        enemyBase = GameObject.FindGameObjectWithTag("EnemyBase").GetComponent<Base>();
         Application.targetFrameRate = 60;
     }
 
@@ -57,8 +60,15 @@ public class GameManager : MonoBehaviour
 
     //Funci�n p�blica que sirve para consumir el recurso energ�a con un par�metro que determina la cantidad de
     //energ�a a consumir
-    public void ConsumeEnergy(float energy)
+    public void ConsumeEnergy(float energy, bool isEnemy = false)
     {
+        if (isEnemy)
+        {
+            if (enemyBase.GetEnergy() - energy < 0)
+                return;
+            enemyBase.SetEnergy(enemyBase.GetEnergy() - energy);
+            return;
+        }
         if (playerBase.GetEnergy() - energy < 0)
             return;
         playerBase.SetEnergy(playerBase.GetEnergy() - energy);
@@ -66,8 +76,15 @@ public class GameManager : MonoBehaviour
 
     //Funci�n p�blica que sirve para consumir el recurso comida con un par�metro que determina la cantidad de
     //comida a consumir
-    public void ConsumeFood(float food)
+    public void ConsumeFood(float food, bool isEnemy = false)
     {
+        if (isEnemy)
+        {
+            if (enemyBase.GetFood() - food < 0)
+                return;
+            enemyBase.SetFood(enemyBase.GetFood() - food);
+            return;
+        }
         if (playerBase.GetFood() - food < 0)
             return;
         playerBase.SetFood(playerBase.GetFood() - food);
@@ -75,8 +92,15 @@ public class GameManager : MonoBehaviour
 
     //Funci�n p�blica que sirve para consumir el recurso tuercas con un par�metro que determina la cantidad de
     //tuercas a consumir
-    public void ConsumeNuts(float nuts)
+    public void ConsumeNuts(float nuts, bool isEnemy = false)
     {
+        if (isEnemy)
+        {
+            if (enemyBase.GetNuts() - nuts < 0)
+                return;
+            enemyBase.SetNuts(enemyBase.GetNuts() - nuts);
+            return;
+        }
         if (playerBase.GetNuts() - nuts < 0)
             return;
         playerBase.SetNuts(playerBase.GetNuts() - nuts);
@@ -133,6 +157,11 @@ public class GameManager : MonoBehaviour
     public Base GetBase()
     {
         return playerBase;
+    }
+
+    public Base GetEnemyBase()
+    {
+        return enemyBase;
     }
 
     public void SetDigimonList(bool state)

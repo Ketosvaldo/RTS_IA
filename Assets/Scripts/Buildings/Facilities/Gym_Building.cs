@@ -6,7 +6,8 @@ using UnityEngine;
 public class Gym_Building : Buildings
 {
     int level = 1;
-    DigimonObject[] trainingDigimons = new DigimonObject[3];
+    DigimonObject[] trainingDigimons = new DigimonObject[2];
+    DigimonAI[] digimonAI = new DigimonAI[2];
     float combatUpg = 3;
     float delay = 30;
     float expEarned = 2;
@@ -16,7 +17,6 @@ public class Gym_Building : Buildings
     float health = 500;
     bool isDeath;
     float nutsCost = 200;
-    
 
     public override string AssignDigimon(DigimonObject digimonToAssign)
     {
@@ -36,9 +36,15 @@ public class Gym_Building : Buildings
     {
         switch (level)
         {
-            case 2: nutsCost = 400; health = 1000; expEarned = 3; delay = 40; combatUpg += 3; trainingDigimons = new DigimonObject[4] { trainingDigimons[0], trainingDigimons[1], null, null }; break;
-            case 3: nutsCost = 700;health = 2000; expEarned = 5; delay = 40; combatUpg += 6; trainingDigimons = new DigimonObject[6] { trainingDigimons[0], trainingDigimons[1], trainingDigimons[2], trainingDigimons[3], null, null }; break;
-            case 4: health = 4000; expEarned = 8; delay = 40; combatUpg += 12; trainingDigimons = new DigimonObject[8] { trainingDigimons[0], trainingDigimons[1], trainingDigimons[2], trainingDigimons[3], trainingDigimons[4], trainingDigimons[5], null, null }; break;
+            case 2: nutsCost = 400; health = 1000; expEarned = 3; delay = 40; combatUpg += 3; 
+                trainingDigimons = new DigimonObject[4] { trainingDigimons[0], trainingDigimons[1], null, null };
+                digimonAI = new DigimonAI[4] { digimonAI[0], digimonAI[1], null, null }; break;
+            case 3: nutsCost = 700;health = 2000; expEarned = 5; delay = 40; combatUpg += 6; 
+                trainingDigimons = new DigimonObject[6] { trainingDigimons[0], trainingDigimons[1], trainingDigimons[2], trainingDigimons[3], null, null };
+                digimonAI = new DigimonAI[6] { digimonAI[0], digimonAI[1], digimonAI[2], digimonAI[3], null, null }; break;
+            case 4: health = 4000; expEarned = 8; delay = 40; combatUpg += 12; 
+                trainingDigimons = new DigimonObject[8] { trainingDigimons[0], trainingDigimons[1], trainingDigimons[2], trainingDigimons[3], trainingDigimons[4], trainingDigimons[5], null, null };
+                digimonAI = new DigimonAI[8] { digimonAI[0], digimonAI[1], digimonAI[2], digimonAI[3], digimonAI[4], digimonAI[5], null, null }; break;
         }
     }
 
@@ -88,10 +94,10 @@ public class Gym_Building : Buildings
         GameManager.instance.SetGymCardResource(energyRequired, nutsRequired);
     }
 
-    public override void ConsumeResource()
+    public override void ConsumeResource(bool isEnemy = false)
     {
-        GameManager.instance.ConsumeEnergy(energyRequired);
-        GameManager.instance.ConsumeNuts(nutsRequired);
+        GameManager.instance.ConsumeEnergy(energyRequired, isEnemy);
+        GameManager.instance.ConsumeNuts(nutsRequired, isEnemy);
     }
 
     public override bool CanBuild()
@@ -119,5 +125,26 @@ public class Gym_Building : Buildings
     public override float GetHealth()
     {
         return health;
+    }
+
+    public override IEnumerator ActivateDelayAI(DigimonAI trainedDigimon, int arrayIndex)
+    {
+        yield return new WaitForSeconds(delay);
+        trainedDigimon.combatPoints += combatUpg;
+        trainedDigimon.ExpGained(expEarned);
+        trainedDigimon.SetBusy(false);
+        digimonAI[arrayIndex] = null;
+    }
+
+    public override void AssignDigimon(DigimonAI digimonToAssign)
+    {
+        for (int i = 0; i < digimonAI.Length; i++)
+        {
+            if (digimonAI[i] == null)
+            {
+                digimonAI[i] = digimonToAssign;
+                GameManager.instance.StartChildCoroutine(ActivateDelayAI(digimonToAssign, i));
+            }
+        }
     }
 }

@@ -123,7 +123,7 @@ MonoBehaviour:
   close: 1
   attack: 0
   evolve: 0
-  thisDigimon: {fileID: 2206751000493288567}
+  thisDigimon: {fileID: 0}
 --- !u!1 &3735468885088724470
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +282,7 @@ MonoBehaviour:
   close: 0
   attack: 0
   evolve: 0
-  thisDigimon: {fileID: 2206751000493288567}
+  thisDigimon: {fileID: 0}
 --- !u!1 &4497041430712613414
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,12 +292,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4125648914291665385}
-  - component: {fileID: 2206751000493288567}
   - component: {fileID: 7217790032635541218}
   - component: {fileID: 3273457509111440528}
+  - component: {fileID: 5875520685934632586}
   m_Layer: 0
-  m_Name: DigimonObject
-  m_TagString: DigimonAlly
+  m_Name: DigimonAI
+  m_TagString: DigimonEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -318,31 +318,6 @@ Transform:
   - {fileID: 6873655732544231767}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2206751000493288567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4497041430712613414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 502ba35ae66a9ac49bdfa6eb68daf630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  digimonName: 
-  combatPoints: 0
-  farmPoints: 0
-  miningPoints: 0
-  level: 0
-  exp: 0
-  maxExp: 10
-  evolution: 0
-  consumeFood: 0
-  digimonEvolutions:
-  - {fileID: 0}
-  - {fileID: 0}
-  OptionsMenu: {fileID: 3735468885088724470}
 --- !u!212 &7217790032635541218
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -416,6 +391,30 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.717692, y: 1.7850031, z: 0.2}
   m_Center: {x: -0.013387978, y: -0.04377836, z: 0}
+--- !u!114 &5875520685934632586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4497041430712613414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47d81d805137c134c9fe2635ea22fee4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  digimonName: 
+  combatPoints: 0
+  farmPoints: 0
+  miningPoints: 0
+  level: 0
+  exp: 0
+  maxExp: 10
+  evolution: 0
+  consumeFood: 0
+  digimonEvolutions:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &4522412546703587354
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,7 +538,7 @@ MonoBehaviour:
   close: 0
   attack: 0
   evolve: 1
-  thisDigimon: {fileID: 2206751000493288567}
+  thisDigimon: {fileID: 0}
 --- !u!1 &6120171508231949023
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,4 +662,4 @@ MonoBehaviour:
   close: 0
   attack: 1
   evolve: 0
-  thisDigimon: {fileID: 2206751000493288567}
+  thisDigimon: {fileID: 0}

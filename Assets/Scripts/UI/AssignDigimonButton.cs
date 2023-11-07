@@ -27,7 +27,6 @@ public class AssignDigimonButton : MonoBehaviour
         DigimonListActive lista = FindObjectOfType<DigimonListActive>();
         lista.buildToAssign.AssignDigimon(digimon);
         Vector3 buildPos = lista.buildToAssign.gameObject.transform.position;
-        print(buildPos);
         digimon.MoveToTarget(new Vector3(buildPos.x, buildPos.y + 0.01f, buildPos.z));
         lista.gameObject.SetActive(false);
     }

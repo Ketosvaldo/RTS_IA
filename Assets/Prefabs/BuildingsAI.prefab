@@ -122,7 +122,7 @@ MonoBehaviour:
   levelUp: 0
   assign: 0
   close: 1
-  thisBuild: {fileID: 765697202411133310}
+  thisBuild: {fileID: 0}
 --- !u!1 &774196065313500492
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
   levelUp: 1
   assign: 0
   close: 0
-  thisBuild: {fileID: 765697202411133310}
+  thisBuild: {fileID: 0}
 --- !u!65 &476185506232527427
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -256,11 +256,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5400989784726497173}
   - component: {fileID: 900731866668524148}
-  - component: {fileID: 765697202411133310}
   - component: {fileID: 4511599933586978098}
+  - component: {fileID: 5118105641370361647}
   m_Layer: 0
-  m_Name: BuildingsObject
-  m_TagString: BuildAlly
+  m_Name: BuildingsAI
+  m_TagString: BuildEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -334,7 +334,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &765697202411133310
+--- !u!65 &4511599933586978098
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945189273208467321}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.531163, y: 3.05, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5118105641370361647
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -343,11 +364,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 945189273208467321}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffffd70095ac25e4db5426ba312e2e42, type: 3}
+  m_Script: {fileID: 11500000, guid: 8c5acd46471244e48aff341d1675e8fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
-  level: 0
+  level: 1
   vida: 0
   slider: {fileID: 6927387310915249577}
   gradien:
@@ -382,28 +403,6 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   color: {r: 0, g: 0, b: 0, a: 0}
   Fill: {fileID: 8909936111726304767}
-  OptionsMenu: {fileID: 1155297240786084866}
---- !u!65 &4511599933586978098
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 945189273208467321}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4.531163, y: 3.05, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1155297240786084866
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,7 +768,7 @@ MonoBehaviour:
   levelUp: 0
   assign: 1
   close: 0
-  thisBuild: {fileID: 765697202411133310}
+  thisBuild: {fileID: 0}
 --- !u!65 &7010678500593567463
 BoxCollider:
   m_ObjectHideFlags: 0

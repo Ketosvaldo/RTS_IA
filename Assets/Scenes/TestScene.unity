@@ -6756,6 +6756,7 @@ GameObject:
   - component: {fileID: 199627771}
   - component: {fileID: 199627770}
   - component: {fileID: 199627774}
+  - component: {fileID: 199627775}
   m_Layer: 0
   m_Name: EnemyBase
   m_TagString: EnemyBase
@@ -6867,8 +6868,26 @@ MonoBehaviour:
   nrgprscnd: 1
   foodprscnd: 0
   nutsprscnd: 0
-  isEnemy: 0
+  isEnemy: 1
   Menu: {fileID: 232204002}
+--- !u!114 &199627775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199627769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8afa7b2a05997a48ba2b4f29949d4af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  digimonObject: {fileID: 4497041430712613414, guid: 4ac3ef135dd6ade40a86d173f96a9a2a, type: 3}
+  buildObject: {fileID: 945189273208467321, guid: 4066fc25bac752441866a6039e139f65, type: 3}
+  buildSprites:
+  - {fileID: -1085206141, guid: e8a73a183329a784985e00d136886044, type: 3}
+  - {fileID: 1115924395, guid: e8a73a183329a784985e00d136886044, type: 3}
+  - {fileID: -59805308, guid: e8a73a183329a784985e00d136886044, type: 3}
 --- !u!1001 &200022195
 PrefabInstance:
   m_ObjectHideFlags: 0

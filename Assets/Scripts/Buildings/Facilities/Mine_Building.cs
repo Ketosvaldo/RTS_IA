@@ -10,6 +10,7 @@ public class Mine_Building : Buildings
     float nutsUpg = 3;
     float expEarned = 2;
     DigimonObject[] miningDigimon = new DigimonObject[2];
+    DigimonAI[] digimonAI = new DigimonAI[2];
     Sprite sprite;
     float energyRequired = 30f;
     float health = 700;
@@ -41,9 +42,15 @@ public class Mine_Building : Buildings
     {
         switch (level)
         {
-            case 2: nutsCost = 300; health = 1400; delay = 45; nutsUpg = 3; expEarned = 4; miningDigimon = new DigimonObject[4] { miningDigimon[0], miningDigimon[1], null, null }; break;
-            case 3: nutsCost = 700; health = 2800; delay = 60; nutsUpg = 6; expEarned = 8; miningDigimon = new DigimonObject[6] { miningDigimon[0], miningDigimon[1], miningDigimon[2], miningDigimon[3], null, null }; break;
-            case 4: health = 5600; delay = 75; nutsUpg = 12; expEarned = 12; miningDigimon = new DigimonObject[8] { miningDigimon[0], miningDigimon[1], miningDigimon[2], miningDigimon[3], miningDigimon[4], miningDigimon[5], null, null }; break;
+            case 2: nutsCost = 300; health = 1400; delay = 45; nutsUpg = 3; expEarned = 4; 
+                miningDigimon = new DigimonObject[4] { miningDigimon[0], miningDigimon[1], null, null };
+                digimonAI = new DigimonAI[4] { digimonAI[0], digimonAI[1], null, null }; break;
+            case 3: nutsCost = 700; health = 2800; delay = 60; nutsUpg = 6; expEarned = 8; 
+                miningDigimon = new DigimonObject[6] { miningDigimon[0], miningDigimon[1], miningDigimon[2], miningDigimon[3], null, null };
+                digimonAI = new DigimonAI[6] { digimonAI[0], digimonAI[1], digimonAI[2], digimonAI[3], null, null }; break;
+            case 4: health = 5600; delay = 75; nutsUpg = 12; expEarned = 12;
+                miningDigimon = new DigimonObject[8] { miningDigimon[0], miningDigimon[1], miningDigimon[2], miningDigimon[3], miningDigimon[4], miningDigimon[5], null, null };
+                digimonAI = new DigimonAI[8] { digimonAI[0], digimonAI[1], digimonAI[2], digimonAI[3], digimonAI[4], digimonAI[5], null, null }; break;
         }
         //StatUPG();
     }
@@ -74,6 +81,16 @@ public class Mine_Building : Buildings
         miningDigimon[arrayIndex] = null;
     }
 
+    public override IEnumerator ActivateDelayAI(DigimonAI trainedDigimon, int arrayIndex)
+    {
+        yield return new WaitForSeconds(delay);
+        GameManager.instance.GetBase().NutsUpgrade(-trainedDigimon.miningPoints * 0.03f);
+        trainedDigimon.farmPoints += nutsUpg;
+        trainedDigimon.ExpGained(expEarned);
+        trainedDigimon.SetBusy(false);
+        digimonAI[arrayIndex] = null;
+    }
+
     public override void SetSprite(Sprite sprite)
     {
         this.sprite = sprite;
@@ -89,9 +106,9 @@ public class Mine_Building : Buildings
         GameManager.instance.SetMineCardResource(energyRequired);
     }
 
-    public override void ConsumeResource()
+    public override void ConsumeResource(bool isEnemy = false)
     {
-        GameManager.instance.ConsumeEnergy(30f);
+        GameManager.instance.ConsumeEnergy(30f, isEnemy);
     }
 
     public override bool CanBuild()
@@ -119,5 +136,18 @@ public class Mine_Building : Buildings
     public override float GetHealth()
     {
         return health;
+    }
+
+    public override void AssignDigimon(DigimonAI digimonToAssign)
+    {
+        for (int i = 0; i < digimonAI.Length; i++)
+        {
+            if (digimonAI[i] == null)
+            {
+                digimonAI[i] = digimonToAssign;
+                GameManager.instance.StartChildCoroutine(ActivateDelayAI(digimonToAssign, i));
+                GameManager.instance.GetEnemyBase().NutsUpgrade(digimonToAssign.miningPoints * 0.03f * nutsUpg);
+            }
+        }
     }
 }

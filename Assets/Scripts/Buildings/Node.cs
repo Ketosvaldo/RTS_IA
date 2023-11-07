@@ -16,6 +16,8 @@ public class Node : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (CompareTag("EnemyNode"))
+            return;
         if(BuildManager.Instance.GetBuildInfo() == null || full)
         {
             return;

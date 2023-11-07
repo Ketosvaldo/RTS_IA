@@ -55,7 +55,7 @@ public class DigimonAI : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         int randomNum = Random.Range(0, 10);
-        if (randomNum > 8)
+        if (randomNum > 8 && !isBusy)
         {
             DigimonAllies = GameObject.FindGameObjectsWithTag("DigimonAlly");
             BuildAllies = GameObject.FindGameObjectsWithTag("BuildAlly");
