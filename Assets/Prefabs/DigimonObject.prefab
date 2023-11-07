@@ -587,11 +587,14 @@ MonoBehaviour:
   combatPoints: 0
   farmPoints: 0
   miningPoints: 0
+  sprite: {fileID: 0}
   level: 0
+  vida: 0
   exp: 0
   maxExp: 10
   evolution: 0
   consumeFood: 0
+  slider: {fileID: 2178900712456598015}
   digimonEvolutions:
   - {fileID: 0}
   - {fileID: 0}

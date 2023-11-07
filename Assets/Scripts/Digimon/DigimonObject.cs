@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 //Clase que llega el Prefab "DigimonObject", ya que será el Digimon a instanciar in-game
 public class DigimonObject : MonoBehaviour
@@ -9,15 +10,20 @@ public class DigimonObject : MonoBehaviour
     public float farmPoints;
     public float miningPoints;
     SpriteRenderer spriteRenderer;
+    public Sprite sprite;
     public DigiTypes type;
     public int level;
+    public float vida;
     public float exp = 0;
     public float maxExp = 10;
     [SerializeField]
     int evolution;
     public float consumeFood;
 
+    public Slider slider;
     public Sprite[] digimonEvolutions;
+
+
 
     public GameObject OptionsMenu;
 
@@ -25,14 +31,28 @@ public class DigimonObject : MonoBehaviour
     bool isBusy;
 
     bool move;
+
     private void Update()
     {
         GameManager.instance.ConsumeFood(consumeFood * Time.deltaTime);
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            MakeDamage(25);
+        }
         if (!move)
             return;
         transform.position = Vector3.MoveTowards(transform.position, newPos, 0.2f);
         if (transform.position == newPos)
             move = false;
+
+
+    }
+
+
+    public void SetHealth()
+    {
+        slider.value = vida;
+        
     }
 
     private void Start()
@@ -42,6 +62,8 @@ public class DigimonObject : MonoBehaviour
         maxExp = 10;
         evolution = 1;
         consumeFood = 0.5f;
+        slider.maxValue = vida;
+        SetHealth();
     }
 
     private void OnMouseDown()
@@ -198,6 +220,13 @@ public class DigimonObject : MonoBehaviour
         consumeFood *= 2.5f;
         SetSprite(digimonEvolutions[evolution - 2]);
         ResetStats();
+    }
+
+    public void MakeDamage(float damage)
+    {
+        vida -= damage;
+        SetHealth();
+        
     }
 
     void ResetStats()
