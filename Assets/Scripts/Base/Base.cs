@@ -130,4 +130,13 @@ public class Base : MonoBehaviour
         
         return totalFood;
     }
+
+    public void MakeDamage(float damage)
+    {
+        health -= damage;
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 }

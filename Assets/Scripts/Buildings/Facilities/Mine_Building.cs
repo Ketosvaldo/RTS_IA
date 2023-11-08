@@ -66,6 +66,7 @@ public class Mine_Building : Buildings
         {
             if (miningDigimon[i] == null)
             {
+                digimonToAssign.SetBusy(true);
                 miningDigimon[i] = digimonToAssign;
                 GameManager.instance.StartChildCoroutine(ActivateDelay(digimonToAssign, i));
                 GameManager.instance.GetBase().NutsUpgrade(digimonToAssign.miningPoints * 0.03f * nutsUpg);

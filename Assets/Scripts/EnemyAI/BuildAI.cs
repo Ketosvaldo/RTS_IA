@@ -46,12 +46,11 @@ public class BuildAI : MonoBehaviour
                 digimonsAI[i] = allDigimonsAIGO[i].GetComponent<DigimonAI>();
                 if (!digimonsAI[i].IsBusy())
                 {
-                    digimonsAI[i].SetBusy(true);
-                    digimonsAI[i].attack = false;
                     AssignDigimon(digimonsAI[i]);
                     Vector3 buildPos = transform.position;
                     digimonsAI[i].MoveToTarget(new Vector3(buildPos.x, buildPos.y + 0.01f, buildPos.z));
-                    break;
+                    if(digimonsAI[i].IsBusy())
+                        break;
                 }
             }
         }

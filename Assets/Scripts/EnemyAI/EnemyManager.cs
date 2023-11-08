@@ -12,6 +12,8 @@ public class EnemyManager : MonoBehaviour
     public Sprite[] digimonSprites;
     GameObject[] enemyNodes;
     Node[] nodeEnemy;
+
+    string buildName;
     private void Start()
     {
         enemyBase = GetComponent<Base>();
@@ -69,6 +71,8 @@ public class EnemyManager : MonoBehaviour
         props.farmPoints = character.farmPoints;
         props.miningPoints = character.miningPoints;
         props.health = character.vida;
+        props.name = character.name;
+        newObject.name = character.name + " AI";
         props.SetSprite(character.GetSprite());
     }
 
@@ -79,18 +83,21 @@ public class EnemyManager : MonoBehaviour
         if (enemyBase.GetConsumeFood() > enemyBase.foodprscnd)
         {
             build = new Farm_Building();
+            buildName = "Farm AI";
             build.SetSprite(buildSprites[0]);
         }
         //Spawn Mine
         else if (enemyBase.GetNuts() < 100)
         {
             build = new Mine_Building();
+            buildName = "Mine AI";
             build.SetSprite(buildSprites[1]);
         }
         //Spawn Gym
         else
         {
             build = new Gym_Building();
+            buildName = "Gym AI";
             build.SetSprite(buildSprites[2]);
         }
         if (!build.CanBuild())
@@ -109,7 +116,7 @@ public class EnemyManager : MonoBehaviour
             return;
         build.ConsumeResource(true);
         GameObject newObject = Instantiate(buildObject, new Vector3(pos.x, pos.y + 2f, pos.z), Quaternion.identity);
-        Debug.Log("Es una build");
+        newObject.name = buildName;
         newObject.transform.Rotate(new Vector3(60, 0, 0));
         BuildAI props = newObject.GetComponent<BuildAI>();
         props.SetBuild(build);

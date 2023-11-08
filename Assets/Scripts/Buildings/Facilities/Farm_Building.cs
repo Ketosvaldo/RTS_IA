@@ -69,10 +69,10 @@ public class Farm_Building : Buildings
         {
             if (farmingDigimons[i] == null)
             {
+                digimonToAssign.SetBusy(true);
                 farmingDigimons[i] = digimonToAssign;
                 GameManager.instance.StartChildCoroutine(ActivateDelay(digimonToAssign, i));
                 GameManager.instance.GetBase().FoodUpgrade(digimonToAssign.farmPoints * 0.03f);
-                farmingDigimons[i] = null;
                 return "Tu " + digimonToAssign.GetName() + " ahora esta cosechando.";
             }
         }
@@ -144,10 +144,11 @@ public class Farm_Building : Buildings
             if (digimonAIs[i] == null)
             {
                 digimonAIs[i] = digimonToAssign;
+                digimonAIs[i].SetBusy(true);
+                digimonAIs[i].attack = false;
                 Debug.Log(digimonAIs[i].name);
                 GameManager.instance.StartChildCoroutine(ActivateDelayAI(digimonToAssign, i));
                 GameManager.instance.GetEnemyBase().FoodUpgrade(digimonToAssign.farmPoints * 0.03f);
-                digimonAIs[i] = null;
             }
         }
     }

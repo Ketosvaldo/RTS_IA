@@ -23,11 +23,13 @@ public class AssignDigimonButton : MonoBehaviour
 
     void AssignDigimonToBuild()
     {
-        digimon.SetBusy(true);
         DigimonListActive lista = FindObjectOfType<DigimonListActive>();
         lista.buildToAssign.AssignDigimon(digimon);
-        Vector3 buildPos = lista.buildToAssign.gameObject.transform.position;
-        digimon.MoveToTarget(new Vector3(buildPos.x, buildPos.y + 0.01f, buildPos.z));
+        if (digimon.IsBusy())
+        {
+            Vector3 buildPos = lista.buildToAssign.gameObject.transform.position;
+            digimon.MoveToTarget(new Vector3(buildPos.x, buildPos.y + 0.01f, buildPos.z));
+        }
         lista.gameObject.SetActive(false);
     }
 }

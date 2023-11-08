@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,7 +33,11 @@ public class DigimonAI : MonoBehaviour
     GameObject[] DigimonAllies;
     GameObject[] BuildAllies;
 
+    DigimonObject digimonTarget;
+
     Build_Object buildTarget;
+
+    Base baseTarget;
     private void Update()
     {
         GameManager.instance.ConsumeFood(consumeFood * Time.deltaTime, true);
@@ -46,7 +49,12 @@ public class DigimonAI : MonoBehaviour
             move = false;
             if (attack)
             {
-                buildTarget.MakeDamage(combatPoints);
+                if (buildTarget)
+                    buildTarget.MakeDamage(combatPoints);
+                else if (digimonTarget)
+                    digimonTarget.MakeDamage(combatPoints);
+                else 
+                    baseTarget.MakeDamage(combatPoints);
                 StartCoroutine(StartAttack());
             }
         }
@@ -68,50 +76,14 @@ public class DigimonAI : MonoBehaviour
         int randomNum = Random.Range(0, 10);
         if (randomNum > 8 && !isBusy)
         {
-            DigimonAllies = GameObject.FindGameObjectsWithTag("DigimonAlly");
-            BuildAllies = GameObject.FindGameObjectsWithTag("BuildAlly");
-            if (DigimonAllies.Length != 0)
+            AttackDigimon();
+            if (!attack)
             {
-                foreach (GameObject digimon in DigimonAllies)
-                {
-                    float digimonPower = digimon.GetComponent<DigimonObject>().combatPoints;
-                    if (combatPoints > digimonPower)
-                    {
-                        newPos = digimon.transform.position;
-                        move = true;
-                        attack = true;
-                        break;
-                    }
-                }
-            }
-
-            if(BuildAllies.Length != 0)
-            {
-                GameObject targetBuild = null;
-                float distance = 0;
-
-                foreach (GameObject build in BuildAllies)
-                {
-                    if (targetBuild == null)
-                    {
-                        distance = Vector3.Distance(transform.position, build.transform.position);
-                        targetBuild = build;
-                    }
-                    else
-                    {
-                        float tempDistance = Vector3.Distance(transform.position, build.transform.position);
-                        if (distance > tempDistance)
-                        {
-                            distance = tempDistance;
-                            targetBuild = build;
-                        }
-                    }
-                }
-                newPos = targetBuild.transform.position;
-                buildTarget = targetBuild.GetComponent<Build_Object>();
-                move = true;
-                attack = true;
-                SetBusy(true);
+                randomNum = Random.Range(0, 10);
+                if (randomNum < 3)
+                    AttackBuilds();
+                else if (randomNum > 7)
+                    AttackBase();
             }
         }
         StartCoroutine(TakeDecision());
@@ -123,13 +95,13 @@ public class DigimonAI : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprite;
     }
-    //Funci�n p�blica para ser llamado in-game que sirve para establecer que nuestro Digimon se vuelva uno de tipo combate
+    //Funcion publica para ser llamado in-game que sirve para establecer que nuestro Digimon se vuelva uno de tipo combate
     public void SetCombatType()
     {
         type = new Combat_Type();
         SetStats();
     }
-    //Funci�n p�blica para ser llamado in-game que sirve para establecer que nuestro Digimon se vuelva uno de tipo minero
+    //Funcion publica para ser llamado in-game que sirve para establecer que nuestro Digimon se vuelva uno de tipo minero
     public void SetMiningType()
     {
         type = new Mining_Type();
@@ -288,19 +260,96 @@ public class DigimonAI : MonoBehaviour
         level = 1;
     }
 
+    void AttackDigimon()
+    {
+        DigimonAllies = GameObject.FindGameObjectsWithTag("DigimonAlly");
+
+        if (DigimonAllies.Length != 0)
+        {
+            foreach (GameObject digimon in DigimonAllies)
+            {
+                float digimonPower = digimon.GetComponent<DigimonObject>().combatPoints;
+                if (combatPoints > digimonPower)
+                {
+                    digimonTarget = digimon.GetComponent<DigimonObject>();
+                    newPos = digimon.transform.position;
+                    move = true;
+                    attack = true;
+                    SetBusy(true);
+                    break;
+                }
+            }
+        }
+    }
+
+    void AttackBuilds()
+    {
+        BuildAllies = GameObject.FindGameObjectsWithTag("BuildAlly");
+        if (BuildAllies.Length != 0)
+        {
+            GameObject targetBuild = null;
+            float distance = 0;
+
+            foreach (GameObject build in BuildAllies)
+            {
+                if (targetBuild == null)
+                {
+                    distance = Vector3.Distance(transform.position, build.transform.position);
+                    targetBuild = build;
+                }
+                else
+                {
+                    float tempDistance = Vector3.Distance(transform.position, build.transform.position);
+                    if (distance > tempDistance)
+                    {
+                        distance = tempDistance;
+                        targetBuild = build;
+                    }
+                }
+            }
+            newPos = targetBuild.transform.position;
+            buildTarget = targetBuild.GetComponent<Build_Object>();
+            move = true;
+            attack = true;
+            SetBusy(true);
+        }
+    }
+
+    void AttackBase()
+    {
+        baseTarget = GameManager.instance.GetBase();
+        Vector3 basePos = baseTarget.transform.position;
+        newPos = new Vector3(basePos.x, basePos.y + 1.8f, basePos.z);
+        move = true;
+        attack = true;
+        SetBusy(true);
+    }
+
     IEnumerator StartAttack()
     {
         yield return new WaitForSeconds(2f);
         if (attack)
         {
-            if(buildTarget != null)
+            if(digimonTarget != null)
+            {
+                digimonTarget.MakeDamage(combatPoints);
+                StartCoroutine(StartAttack());
+            }
+            else if(buildTarget != null)
             {
                 buildTarget.MakeDamage(combatPoints);
+                StartCoroutine(StartAttack());
+            }
+            else if (baseTarget != null)
+            {
+                baseTarget.MakeDamage(combatPoints);
                 StartCoroutine(StartAttack());
             }
             else
             {
                 attack = false;
+                SetBusy(false);
+                ExpGained(400);
             }
         }
     }

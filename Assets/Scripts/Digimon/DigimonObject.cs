@@ -34,6 +34,10 @@ public class DigimonObject : MonoBehaviour
 
     bool move;
 
+    public BuildAI buildTarget;
+
+    public Base baseTarget;
+
     private void Update()
     {
         GameManager.instance.ConsumeFood(consumeFood * Time.deltaTime);
@@ -45,7 +49,12 @@ public class DigimonObject : MonoBehaviour
             move = false;
             if (isAttacking)
             {
-                digimonTarget.MakeDamage(combatPoints);
+                if(digimonTarget != null)
+                    digimonTarget.MakeDamage(combatPoints);
+                else if (buildTarget != null)
+                    buildTarget.MakeDamage(combatPoints);
+                else
+                    baseTarget.MakeDamage(combatPoints);
                 StartCoroutine(StartAttack());
             }
         }
@@ -245,6 +254,16 @@ public class DigimonObject : MonoBehaviour
             if (digimonTarget != null)
             {
                 digimonTarget.MakeDamage(combatPoints);
+                StartCoroutine(StartAttack());
+            }
+            else if (buildTarget != null)
+            {
+                buildTarget.MakeDamage(combatPoints);
+                StartCoroutine(StartAttack());
+            }
+            else if(baseTarget != null)
+            {
+                baseTarget.MakeDamage(combatPoints);
                 StartCoroutine(StartAttack());
             }
             else

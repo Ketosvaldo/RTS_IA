@@ -27,8 +27,6 @@ public class GameManager : MonoBehaviour
     public GameObject DigimonListAttack;
     [Header("Tipos de Digimon")]
     public GameObject DigimonType;
-    [Header("Lista de bases")]
-    public GameObject BuildList;
     //Referencia de la base del jugador
     Base playerBase;
     Base enemyBase;
@@ -190,11 +188,6 @@ public class GameManager : MonoBehaviour
     {
         DigimonType.SetActive(state);
         DigimonType.GetComponent<SetDigimonType>().digimon = _digimon;
-    }
-
-    public void SetBuildList(bool state)
-    {
-        BuildList.SetActive(state);
     }
 
     public DigimonObject GetActualDigimon()

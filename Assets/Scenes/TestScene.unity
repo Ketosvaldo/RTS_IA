@@ -8649,7 +8649,6 @@ MonoBehaviour:
   DigimonList: {fileID: 570898024}
   DigimonListAttack: {fileID: 1333864599}
   DigimonType: {fileID: 855975095}
-  BuildList: {fileID: 0}
 --- !u!4 &243886878
 Transform:
   m_ObjectHideFlags: 0
@@ -50816,6 +50815,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   containerDigimonActive: {fileID: 2636266282636218275, guid: 600ac4f8924eecf468441fc79fabf10b, type: 3}
+  containerBuildActive: {fileID: 2636266282636218275, guid: 07ffbb3edccb74c4d943aa8de57137a9, type: 3}
+  containerBaseActive: {fileID: 2636266282636218275, guid: 2d6bc810f64cd2e4787dbad3ad93a927, type: 3}
   parentObjectList: {fileID: 710086021}
 --- !u!1001 &1336571980
 PrefabInstance:

@@ -24,6 +24,7 @@ public class Gym_Building : Buildings
         {
             if (trainingDigimons[i] == null)
             {
+                digimonToAssign.SetBusy(true);
                 trainingDigimons[i] = digimonToAssign;
                 GameManager.instance.StartChildCoroutine(ActivateDelay(digimonToAssign, i));
                 return "Tu " + digimonToAssign.name + " ahora esta entrenando.";
