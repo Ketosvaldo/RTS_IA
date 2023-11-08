@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,17 +14,18 @@ public class DigimonObject : MonoBehaviour
     public Sprite sprite;
     public DigiTypes type;
     public int level;
-    public float vida;
+    public float health;
     public float exp = 0;
     public float maxExp = 10;
     [SerializeField]
     int evolution;
     public float consumeFood;
 
+    public bool isAttacking;
+    public DigimonAI digimonTarget;
+
     public Slider slider;
     public Sprite[] digimonEvolutions;
-
-
 
     public GameObject OptionsMenu;
 
@@ -35,24 +37,24 @@ public class DigimonObject : MonoBehaviour
     private void Update()
     {
         GameManager.instance.ConsumeFood(consumeFood * Time.deltaTime);
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            MakeDamage(25);
-        }
         if (!move)
             return;
         transform.position = Vector3.MoveTowards(transform.position, newPos, 0.2f);
         if (transform.position == newPos)
+        {
             move = false;
-
-
+            if (isAttacking)
+            {
+                digimonTarget.MakeDamage(combatPoints);
+                StartCoroutine(StartAttack());
+            }
+        }
     }
 
 
     public void SetHealth()
     {
-        slider.value = vida;
-        
+        slider.value = health;
     }
 
     private void Start()
@@ -62,7 +64,7 @@ public class DigimonObject : MonoBehaviour
         maxExp = 10;
         evolution = 1;
         consumeFood = 0.5f;
-        slider.maxValue = vida;
+        slider.maxValue = health;
         SetHealth();
     }
 
@@ -217,6 +219,7 @@ public class DigimonObject : MonoBehaviour
         farmPoints *= 2;
         combatPoints *= 2;
         miningPoints *= 2;
+        health *= 2;
         consumeFood *= 2.5f;
         SetSprite(digimonEvolutions[evolution - 2]);
         ResetStats();
@@ -224,14 +227,32 @@ public class DigimonObject : MonoBehaviour
 
     public void MakeDamage(float damage)
     {
-        vida -= damage;
+        health -= damage;
         SetHealth();
-        
     }
 
     void ResetStats()
     {
         exp = 0;
         level = 1;
+    }
+
+    IEnumerator StartAttack()
+    {
+        yield return new WaitForSeconds(2f);
+        if (isAttacking)
+        {
+            if (digimonTarget != null)
+            {
+                digimonTarget.MakeDamage(combatPoints);
+                StartCoroutine(StartAttack());
+            }
+            else
+            {
+                isAttacking = false;
+                isBusy = false;
+                ExpGained(400);
+            }
+        }
     }
 }

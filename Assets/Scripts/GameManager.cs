@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI GymNutsCostUI;
     [Header("Lista de Digimon")]
     public GameObject DigimonList;
+    public GameObject DigimonListAttack;
     [Header("Tipos de Digimon")]
     public GameObject DigimonType;
     [Header("Lista de bases")]
@@ -31,6 +32,9 @@ public class GameManager : MonoBehaviour
     //Referencia de la base del jugador
     Base playerBase;
     Base enemyBase;
+
+    //Cosas
+    DigimonObject actualDigimon;
 
     //Al iniciar, obtendr� la referencia de la base del jugador en autom�tico.
     private void Awake()
@@ -171,6 +175,12 @@ public class GameManager : MonoBehaviour
         DigimonList.SetActive(state);
     }
 
+    public void SetDigimonListAttack(bool state, DigimonObject _digimon)
+    {
+        actualDigimon = _digimon;
+        DigimonListAttack.SetActive(true);
+    }
+
     public void SetBuildToAssignDigimon(Build_Object build)
     {
         DigimonList.GetComponent<DigimonListActive>().buildToAssign = build;
@@ -185,5 +195,15 @@ public class GameManager : MonoBehaviour
     public void SetBuildList(bool state)
     {
         BuildList.SetActive(state);
+    }
+
+    public DigimonObject GetActualDigimon()
+    {
+        return actualDigimon;
+    }
+
+    public void SetActualDigimon(DigimonObject _digimon)
+    {
+        actualDigimon = _digimon;
     }
 }

@@ -68,6 +68,7 @@ public class EnemyManager : MonoBehaviour
         props.combatPoints = character.combatPoints;
         props.farmPoints = character.farmPoints;
         props.miningPoints = character.miningPoints;
+        props.health = character.vida;
         props.SetSprite(character.GetSprite());
     }
 

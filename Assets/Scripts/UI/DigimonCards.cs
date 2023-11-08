@@ -51,7 +51,7 @@ public class DigimonCards : MonoBehaviour
         GameObject DigiObject = Instantiate(DigimonGO, new Vector3(position.x, position.y + 2, position.z), Quaternion.identity);
         DigiObject.transform.Rotate(new Vector3(60, 0, 0));
         DigimonObject props = DigiObject.GetComponent<DigimonObject>();
-        props.vida = character.vida;
+        props.health = character.vida;
         props.combatPoints = character.combatPoints;
         props.miningPoints = character.miningPoints;
         props.farmPoints = character.farmPoints;

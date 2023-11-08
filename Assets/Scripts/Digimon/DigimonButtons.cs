@@ -26,7 +26,8 @@ public class DigimonButtons : MonoBehaviour
         }
         if (attack)
         {
-            GameManager.instance.SetBuildList(true);
+            GameManager.instance.SetDigimonListAttack(true, thisDigimon);
+            transform.parent.gameObject.SetActive(false);
             return;
         }
         if (close)

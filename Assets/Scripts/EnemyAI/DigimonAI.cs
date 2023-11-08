@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DigimonAI : MonoBehaviour
 {
@@ -18,12 +19,15 @@ public class DigimonAI : MonoBehaviour
     int evolution;
     public float consumeFood;
 
+    public Slider slider;
     public Sprite[] digimonEvolutions;
 
     Vector3 newPos;
     bool isBusy;
 
     bool move;
+
+    public float health;
 
     public bool attack;
 
@@ -259,9 +263,23 @@ public class DigimonAI : MonoBehaviour
         farmPoints *= 2;
         combatPoints *= 2;
         miningPoints *= 2;
+        health *= 2;
         consumeFood *= 2.5f;
         SetSprite(digimonEvolutions[evolution - 2]);
         ResetStats();
+    }
+
+    public void MakeDamage(float damage)
+    {
+        health -= damage;
+        SetHealth();
+        if (health <= 0)
+            Destroy(gameObject);
+    }
+
+    public void SetHealth()
+    {
+        //slider.value = health;
     }
 
     void ResetStats()
