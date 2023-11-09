@@ -34,27 +34,13 @@ public class EnemyManager : MonoBehaviour
 
     IEnumerator TakeDecision()
     {
-        /* yield return new WaitForSeconds(6f);
-         float randomNum = Random.Range(0, 10);
-         if (randomNum < 4)
-             SpawnDigimon();
-         else if (randomNum > 7)
-             SpawnBuild();
-         StartCoroutine(TakeDecision()); */
-
         yield return new WaitForSeconds(3f);
-        if (farmCount < 3)
+        if (Random.Range(0, 10) > 3)
         {
-            SpawnBuild();
-        }
-
-        else if (farmCount >= 3 && mineCount < 3)
-        {
-            SpawnBuild();
-        }
-        else
-        {
-            SpawnBuild();
+            if (GetBuildAverage() > 1 || GetBuildAverage() == 0)
+                SpawnBuild();
+            else
+                SpawnDigimon();
         }
         StartCoroutine(TakeDecision());
     }
@@ -62,31 +48,25 @@ public class EnemyManager : MonoBehaviour
     void SpawnDigimon()
     {
         DigimonCharacters character;
-        
-        int randomNum = Random.Range(0, 10);
-        Debug.Log(randomNum);
-        if (palmonCount < 3) // (randomNum < 4)
+
+        float consumeFood = GameManager.instance.GetEnemyBase().GetConsumeFood();
+        float foodPrScnd = GameManager.instance.GetEnemyBase().foodprscnd;
+        if (consumeFood > foodPrScnd)
         {
             character = new Palmon_Character();
             character.SetSprite(digimonSprites[0]);
             palmonCount++;
         }
-        else if (palmonCount >= 3 && tentomonCount < 3) // (randomNum > 3 && randomNum < 7)
+        else if (tentomonCount < 3) // (randomNum > 3 && randomNum < 7)
         {
             character = new Tentomon_Character();
             character.SetSprite(digimonSprites[1]);
             tentomonCount++;
         }
-        else if(tentomonCount >= 3)
-        {
-            character = new Agumon_Character();
-            character.SetSprite(digimonSprites[2]);
-        }
         else
         {
             character = new Agumon_Character();
             character.SetSprite(digimonSprites[2]);
-            Debug.Log("xd");
         }
 
         if (!GameManager.instance.CheckEnergy(character.DigiCost, true))
@@ -94,7 +74,7 @@ public class EnemyManager : MonoBehaviour
         GameManager.instance.ConsumeEnergy(character.DigiCost, true);
         Vector3 pos = GameManager.instance.GetEnemyBase().transform.position;
         GameObject newObject = Instantiate(digimonObject, new Vector3(pos.x, pos.y + 2, pos.z), Quaternion.identity);
-        Debug.Log("Es una Digimon");
+        Debug.Log("Es un Digimon");
         newObject.transform.Rotate(new Vector3(60, 0, 0));
         DigimonAI props = newObject.GetComponent<DigimonAI>();
         props.combatPoints = character.combatPoints;
@@ -110,7 +90,7 @@ public class EnemyManager : MonoBehaviour
     {
         Buildings build;
         //Spawn Farm
-        if (farmCount < 2) //(enemyBase.GetConsumeFood() > enemyBase.foodprscnd)
+        if (farmCount < 2)
         {
             build = new Farm_Building();
             buildName = "Farm AI";
@@ -118,7 +98,7 @@ public class EnemyManager : MonoBehaviour
             farmCount++;
         }
         //Spawn Mine
-        else if (farmCount >= 2 && mineCount <= 3) //(enemyBase.GetNuts() < 100)
+        else if (farmCount >= 2 && mineCount <= 3)
         {
             build = new Mine_Building();
             buildName = "Mine AI";
@@ -152,6 +132,20 @@ public class EnemyManager : MonoBehaviour
         newObject.transform.Rotate(new Vector3(60, 0, 0));
         BuildAI props = newObject.GetComponent<BuildAI>();
         props.SetBuild(build);
-        return;
+    }
+
+    float GetBuildAverage()
+    {
+        BuildAI[] buildAis = FindObjectsOfType<BuildAI>();
+        int totalSlots = 0;
+        foreach (BuildAI builds in buildAis)
+        {
+            totalSlots += builds.GetActualSlots();
+        }
+
+        int totalDigimon = FindObjectsOfType<DigimonAI>().Length;
+        if (totalSlots == 0)
+            return 0;
+        return totalDigimon / totalSlots;
     }
 }

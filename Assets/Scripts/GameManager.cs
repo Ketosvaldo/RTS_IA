@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
             if (enemyBase.GetEnergy() - energy < 0)
                 return;
             enemyBase.SetEnergy(enemyBase.GetEnergy() - energy);
+            Debug.Log("No mames borrate alv");
             return;
         }
         if (playerBase.GetEnergy() - energy < 0)
@@ -128,8 +129,10 @@ public class GameManager : MonoBehaviour
 
     //Funci�n que retorna verdadero o falso para verificar que contamos con la cantidad de tuercas necesaria
     //para realizar un proceso
-    public bool CheckNuts(float nuts)
+    public bool CheckNuts(float nuts, bool isEnemy = false)
     {
+        if (isEnemy)
+            return enemyBase.GetNuts() - nuts > 0;
         return playerBase.GetNuts() - nuts > 0;
     }
 

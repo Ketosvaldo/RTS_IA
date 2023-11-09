@@ -23,6 +23,12 @@ public class Farm_Building : Buildings
         {
             if (!GameManager.instance.CheckNuts(nutsCost))
                 return;
+            if (level == 4)
+                return;
+            level += 1;
+            GameManager.instance.ConsumeNuts(nutsCost, true);
+            Levels();
+            return;
         }
         if (!GameManager.instance.CheckNuts(nutsCost))
         {
@@ -161,5 +167,10 @@ public class Farm_Building : Buildings
         trainedDigimon.ExpGained(expEarned);
         trainedDigimon.SetBusy(false);
         digimonAIs[arrayIndex] = null;
+    }
+    
+    public override int GetSlotNumber()
+    {
+        return farmingDigimons.Length;
     }
 }

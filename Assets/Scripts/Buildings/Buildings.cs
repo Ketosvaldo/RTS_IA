@@ -30,4 +30,6 @@ public abstract class Buildings
     public abstract bool IsDeath();
     public abstract float GetHealth();
     public abstract void AssignDigimon(DigimonAI digimonToAssign);
+
+    public abstract int GetSlotNumber();
 }

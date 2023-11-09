@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BuildAI : MonoBehaviour
 {
@@ -96,5 +98,22 @@ public class BuildAI : MonoBehaviour
     public float GetHealth()
     {
         return build.GetHealth();
+    }
+
+    public int GetActualSlots()
+    {
+        return build.GetSlotNumber();
+    }
+
+    private void OnDestroy()
+    {
+        EnemyManager enemyManager = FindObjectOfType<EnemyManager>();
+        switch (name)
+        {
+            case "Farm AI": enemyManager.farmCount -= 1;
+                break;
+            case "Mine AI": enemyManager.mineCount -= 1;
+                break;
+        }
     }
 }

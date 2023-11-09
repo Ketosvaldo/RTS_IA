@@ -23,6 +23,12 @@ public class Mine_Building : Buildings
         {
             if (!GameManager.instance.CheckNuts(nutsCost))
                 return;
+            if (level == 4)
+                return;
+            level += 1;
+            GameManager.instance.ConsumeNuts(nutsCost, true);
+            Levels();
+            return;
         }
         if (!GameManager.instance.CheckNuts(nutsCost))
         {
@@ -114,12 +120,12 @@ public class Mine_Building : Buildings
 
     public override void ConsumeResource(bool isEnemy = false)
     {
-        GameManager.instance.ConsumeEnergy(30f, isEnemy);
+        GameManager.instance.ConsumeEnergy(energyRequired, isEnemy);
     }
 
     public override bool CanBuild()
     {
-        return GameManager.instance.CheckEnergy(energyRequired);
+        return GameManager.instance.CheckEnergy(energyRequired, true);
     }
 
     public override int GetLevel()
@@ -155,5 +161,10 @@ public class Mine_Building : Buildings
                 GameManager.instance.GetEnemyBase().NutsUpgrade(digimonToAssign.miningPoints * 0.03f * nutsUpg);
             }
         }
+    }
+
+    public override int GetSlotNumber()
+    {
+        return miningDigimon.Length;
     }
 }

@@ -55,6 +55,12 @@ public class Gym_Building : Buildings
         {
             if (!GameManager.instance.CheckNuts(nutsCost))
                 return;
+            if (level == 4)
+                return;
+            level += 1;
+            GameManager.instance.ConsumeNuts(nutsCost, true);
+            Levels();
+            return;
         }
         if (!GameManager.instance.CheckNuts(nutsCost))
         {
@@ -108,7 +114,7 @@ public class Gym_Building : Buildings
 
     public override bool CanBuild()
     {
-        return GameManager.instance.CheckEnergy(energyRequired) && GameManager.instance.CheckNuts(nutsRequired);
+        return GameManager.instance.CheckEnergy(energyRequired, true) && GameManager.instance.CheckNuts(nutsRequired, true);
     }
 
     public override int GetLevel()
@@ -152,5 +158,10 @@ public class Gym_Building : Buildings
                 GameManager.instance.StartChildCoroutine(ActivateDelayAI(digimonToAssign, i));
             }
         }
+    }
+    
+    public override int GetSlotNumber()
+    {
+        return trainingDigimons.Length;
     }
 }

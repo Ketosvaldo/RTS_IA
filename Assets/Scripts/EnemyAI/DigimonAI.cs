@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -129,6 +130,44 @@ public class DigimonAI : MonoBehaviour
     void LevelUp()
     {
         level += 1;
+        if (level == 5)
+        {
+            List<int> BestStats = null;
+
+            int combatPointsInt = Mathf.RoundToInt(combatPoints);
+            int farmPointsInt = Mathf.RoundToInt(farmPoints);
+            int miningPointsInt = Mathf.RoundToInt(miningPoints);
+            
+            BestStats.Add(combatPointsInt);
+            BestStats.Add(farmPointsInt);
+            BestStats.Add(miningPointsInt);
+            BestStats.Sort();
+
+            int lastItem = BestStats[BestStats.Count - 1];
+
+            if (lastItem == combatPoints)
+                type = new Combat_Type();
+            else if (lastItem == farmPointsInt)
+                type = new Farm_Type();
+            else
+                type = new Mining_Type();
+            SetStats();
+        }
+
+        switch (level)
+        {
+            case 8:
+                if (Random.Range(0, 10) < 7)
+                    Evolve();
+                break;
+            case 9:
+                if (Random.Range(0, 10) < 8)
+                    Evolve();
+                break;
+            case 10:
+                Evolve();
+                break;
+        }
         exp = 0;
         SetLevelStats();
         maxExp *= 2;
