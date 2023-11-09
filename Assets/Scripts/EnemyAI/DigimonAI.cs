@@ -70,6 +70,7 @@ public class DigimonAI : MonoBehaviour
         StartCoroutine(TakeDecision());
     }
 
+    //IA decide que hacer
     IEnumerator TakeDecision()
     {
         yield return new WaitForSeconds(2f);
@@ -315,6 +316,7 @@ public class DigimonAI : MonoBehaviour
         }
     }
 
+    //IA ataca tu base
     void AttackBase()
     {
         baseTarget = GameManager.instance.GetBase();

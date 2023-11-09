@@ -33,6 +33,7 @@ public class BuildAI : MonoBehaviour
         slider.value = build.GetHealth();
     }
 
+    //Hace que La AI decida que digimon pondra en su base
     IEnumerator TakeDecision()
     {
         yield return new WaitForSeconds(2f);

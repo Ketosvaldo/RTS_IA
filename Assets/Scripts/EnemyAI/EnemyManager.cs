@@ -12,6 +12,12 @@ public class EnemyManager : MonoBehaviour
     public Sprite[] digimonSprites;
     GameObject[] enemyNodes;
     Node[] nodeEnemy;
+    public int farmCount = 0;
+    public int mineCount = 0;
+    public int gymCount = 0;
+    public int palmonCount = 0;
+    public int tentomonCount = 0;
+    public int agumonCount = 0;
 
     string buildName;
     private void Start()
@@ -28,12 +34,28 @@ public class EnemyManager : MonoBehaviour
 
     IEnumerator TakeDecision()
     {
-        yield return new WaitForSeconds(6f);
-        float randomNum = Random.Range(0, 10);
-        if (randomNum < 4)
-            SpawnDigimon();
-        else if (randomNum > 7)
+        /* yield return new WaitForSeconds(6f);
+         float randomNum = Random.Range(0, 10);
+         if (randomNum < 4)
+             SpawnDigimon();
+         else if (randomNum > 7)
+             SpawnBuild();
+         StartCoroutine(TakeDecision()); */
+
+        yield return new WaitForSeconds(3f);
+        if (farmCount < 3)
+        {
             SpawnBuild();
+        }
+
+        else if (farmCount >= 3 && mineCount < 3)
+        {
+            SpawnBuild();
+        }
+        else
+        {
+            SpawnBuild();
+        }
         StartCoroutine(TakeDecision());
     }
 
@@ -43,20 +65,28 @@ public class EnemyManager : MonoBehaviour
         
         int randomNum = Random.Range(0, 10);
         Debug.Log(randomNum);
-        if (randomNum < 4)
+        if (palmonCount < 3) // (randomNum < 4)
         {
             character = new Palmon_Character();
             character.SetSprite(digimonSprites[0]);
+            palmonCount++;
         }
-        else if (randomNum > 3 && randomNum < 7)
+        else if (palmonCount >= 3 && tentomonCount < 3) // (randomNum > 3 && randomNum < 7)
         {
             character = new Tentomon_Character();
             character.SetSprite(digimonSprites[1]);
+            tentomonCount++;
+        }
+        else if(tentomonCount >= 3)
+        {
+            character = new Agumon_Character();
+            character.SetSprite(digimonSprites[2]);
         }
         else
         {
             character = new Agumon_Character();
             character.SetSprite(digimonSprites[2]);
+            Debug.Log("xd");
         }
 
         if (!GameManager.instance.CheckEnergy(character.DigiCost, true))
@@ -80,18 +110,20 @@ public class EnemyManager : MonoBehaviour
     {
         Buildings build;
         //Spawn Farm
-        if (enemyBase.GetConsumeFood() > enemyBase.foodprscnd)
+        if (farmCount < 2) //(enemyBase.GetConsumeFood() > enemyBase.foodprscnd)
         {
             build = new Farm_Building();
             buildName = "Farm AI";
             build.SetSprite(buildSprites[0]);
+            farmCount++;
         }
         //Spawn Mine
-        else if (enemyBase.GetNuts() < 100)
+        else if (farmCount >= 2 && mineCount <= 3) //(enemyBase.GetNuts() < 100)
         {
             build = new Mine_Building();
             buildName = "Mine AI";
             build.SetSprite(buildSprites[1]);
+            mineCount++;
         }
         //Spawn Gym
         else
