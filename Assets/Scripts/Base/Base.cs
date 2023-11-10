@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 /*Esta es la clase de la base del jugador, aquí se encuentra todo lo que requiere la base*/
 public class Base : MonoBehaviour
@@ -12,6 +13,8 @@ public class Base : MonoBehaviour
     float nuts = 0;
     public float nutsprscnd = 0;
 
+    public Slider slider;
+
     [SerializeField] private bool isEnemy;
     
     //GameObject que despliega un menú para utilizar funciones de la base
@@ -19,6 +22,7 @@ public class Base : MonoBehaviour
 
     //Empieza la base en nivel 1
     int level = 1;
+  
 
     /*Función Update se utiliza únicamente para añadir recursos por segundo y actualizar la UI*/
     void Update()
@@ -26,7 +30,14 @@ public class Base : MonoBehaviour
         nrg += nrgprscnd * Time.deltaTime;
         food += foodprscnd * Time.deltaTime;
         nuts += nutsprscnd * Time.deltaTime;
+        if(!isEnemy)
         GameManager.instance.UpdateUIResources();
+    }
+
+    public void SetHealth()
+    {
+       
+        slider.value = health;
     }
 
     //Función pública para mejorar la cantidad de energía por segundo
@@ -133,8 +144,11 @@ public class Base : MonoBehaviour
 
     public void MakeDamage(float damage)
     {
+        
+        Debug.Log("Damage");
         health -= damage;
-        if(health <= 0)
+        SetHealth();
+        if (health <= 0)
         {
             Destroy(gameObject);
         }

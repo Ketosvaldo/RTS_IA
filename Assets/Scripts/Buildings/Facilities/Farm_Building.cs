@@ -150,8 +150,8 @@ public class Farm_Building : Buildings
             if (digimonAIs[i] == null)
             {
                 digimonAIs[i] = digimonToAssign;
-                digimonAIs[i].SetBusy(true);
-                digimonAIs[i].attack = false;
+                digimonToAssign.SetBusy(true);
+                digimonToAssign.attack = false;
                 Debug.Log(digimonAIs[i].name);
                 GameManager.instance.StartChildCoroutine(ActivateDelayAI(digimonToAssign, i));
                 GameManager.instance.GetEnemyBase().FoodUpgrade(digimonToAssign.farmPoints * 0.03f);

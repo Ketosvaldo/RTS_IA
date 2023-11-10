@@ -51,17 +51,17 @@ public class EnemyManager : MonoBehaviour
 
         float consumeFood = GameManager.instance.GetEnemyBase().GetConsumeFood();
         float foodPrScnd = GameManager.instance.GetEnemyBase().foodprscnd;
-        if (consumeFood > foodPrScnd)
+        if (consumeFood > foodPrScnd && GameManager.instance.GetEnemyBase().GetFood() < 50 || palmonCount <= 2 )
         {
             character = new Palmon_Character();
             character.SetSprite(digimonSprites[0]);
-            palmonCount++;
+            
         }
         else if (tentomonCount < 3) // (randomNum > 3 && randomNum < 7)
         {
             character = new Tentomon_Character();
             character.SetSprite(digimonSprites[1]);
-            tentomonCount++;
+           
         }
         else
         {
@@ -71,6 +71,18 @@ public class EnemyManager : MonoBehaviour
 
         if (!GameManager.instance.CheckEnergy(character.DigiCost, true))
             return;
+
+        switch (character.name)
+        {
+            case "Palmon":
+                palmonCount++;
+                break;
+            case "Tentomon":
+                tentomonCount++;
+
+                break;
+        }
+
         GameManager.instance.ConsumeEnergy(character.DigiCost, true);
         Vector3 pos = GameManager.instance.GetEnemyBase().transform.position;
         GameObject newObject = Instantiate(digimonObject, new Vector3(pos.x, pos.y + 2, pos.z), Quaternion.identity);
@@ -95,15 +107,15 @@ public class EnemyManager : MonoBehaviour
             build = new Farm_Building();
             buildName = "Farm AI";
             build.SetSprite(buildSprites[0]);
-            farmCount++;
+            
         }
         //Spawn Mine
-        else if (farmCount >= 2 && mineCount <= 3)
+        else if (farmCount >= 2 && mineCount < 3 &&  palmonCount > 2)
         {
             build = new Mine_Building();
             buildName = "Mine AI";
             build.SetSprite(buildSprites[1]);
-            mineCount++;
+            
         }
         //Spawn Gym
         else
@@ -114,6 +126,16 @@ public class EnemyManager : MonoBehaviour
         }
         if (!build.CanBuild())
             return;
+        switch (buildName)
+        {
+            case "Farm AI":
+                farmCount++;
+                break;
+            case "Mine AI":
+                mineCount++;
+
+                break;
+        }
         Vector3 pos = Vector3.zero;
         foreach(Node node in nodeEnemy)
         {
@@ -137,15 +159,22 @@ public class EnemyManager : MonoBehaviour
     float GetBuildAverage()
     {
         BuildAI[] buildAis = FindObjectsOfType<BuildAI>();
-        int totalSlots = 0;
+        float totalSlots = 0;
         foreach (BuildAI builds in buildAis)
         {
             totalSlots += builds.GetActualSlots();
         }
 
-        int totalDigimon = FindObjectsOfType<DigimonAI>().Length;
+        float totalDigimon = FindObjectsOfType<DigimonAI>().Length;
+
+        Debug.Log("totalDigimon: " + totalDigimon);
+        Debug.Log("totalSlots: " + totalSlots);
+
         if (totalSlots == 0)
             return 0;
+        if (totalDigimon == 0)
+            return 1;
+        Debug.Log("Res: " + totalDigimon / totalSlots);
         return totalDigimon / totalSlots;
     }
 }

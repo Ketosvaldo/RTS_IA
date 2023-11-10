@@ -157,6 +157,8 @@ public class Mine_Building : Buildings
             if (digimonAI[i] == null)
             {
                 digimonAI[i] = digimonToAssign;
+                digimonToAssign.SetBusy(true);
+                digimonToAssign.attack = false;
                 GameManager.instance.StartChildCoroutine(ActivateDelayAI(digimonToAssign, i));
                 GameManager.instance.GetEnemyBase().NutsUpgrade(digimonToAssign.miningPoints * 0.03f * nutsUpg);
             }

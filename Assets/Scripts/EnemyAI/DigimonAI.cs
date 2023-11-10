@@ -41,6 +41,7 @@ public class DigimonAI : MonoBehaviour
     Base baseTarget;
     private void Update()
     {
+        Debug.Log(isBusy);
         GameManager.instance.ConsumeFood(consumeFood * Time.deltaTime, true);
         if (!move)
             return;
@@ -286,7 +287,20 @@ public class DigimonAI : MonoBehaviour
         health -= damage;
         SetHealth();
         if (health <= 0)
+        {
+            EnemyManager enemyManager = FindObjectOfType<EnemyManager>();
+            switch (name)
+            {
+                case "Palmon AI":
+                    enemyManager.palmonCount -= 1;
+                    break;
+                case "Tentomon AI":
+                    enemyManager.tentomonCount -= 1;
+                    break;     
+            }
             Destroy(gameObject);
+        }
+            
     }
 
     public void SetHealth()

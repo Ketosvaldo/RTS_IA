@@ -155,6 +155,8 @@ public class Gym_Building : Buildings
             if (digimonAI[i] == null)
             {
                 digimonAI[i] = digimonToAssign;
+                digimonToAssign.SetBusy(true);
+                digimonToAssign.attack = false;
                 GameManager.instance.StartChildCoroutine(ActivateDelayAI(digimonToAssign, i));
             }
         }

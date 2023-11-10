@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
     //Cosas
     DigimonObject actualDigimon;
 
+
+
     //Al iniciar, obtendr� la referencia de la base del jugador en autom�tico.
     private void Awake()
     {

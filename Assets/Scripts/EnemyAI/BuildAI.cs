@@ -92,7 +92,20 @@ public class BuildAI : MonoBehaviour
         build.DamageHandler(damage);
         SetHealth();
         if (build.IsDeath())
+        {
+            EnemyManager enemyManager = FindObjectOfType<EnemyManager>();
+            switch (name)
+            {
+                case "Farm AI":
+                    enemyManager.farmCount -= 1;
+                    break;
+                case "Mine AI":
+                    enemyManager.mineCount -= 1;
+                    break;
+            }
             Destroy(gameObject);
+        }
+            
     }
 
     public float GetHealth()
@@ -103,17 +116,5 @@ public class BuildAI : MonoBehaviour
     public int GetActualSlots()
     {
         return build.GetSlotNumber();
-    }
-
-    private void OnDestroy()
-    {
-        EnemyManager enemyManager = FindObjectOfType<EnemyManager>();
-        switch (name)
-        {
-            case "Farm AI": enemyManager.farmCount -= 1;
-                break;
-            case "Mine AI": enemyManager.mineCount -= 1;
-                break;
-        }
     }
 }
