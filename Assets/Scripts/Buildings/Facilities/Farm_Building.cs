@@ -10,7 +10,7 @@ public class Farm_Building : Buildings
     DigimonObject[] farmingDigimons = new DigimonObject[2];
     DigimonAI[] digimonAIs = new DigimonAI[2];
     float delay = 30;
-    float expEarned = 2;
+    float expEarned = 20;
     float energyRequired = 20f;
     Sprite buildSprite;
     float health = 1000;
@@ -57,13 +57,13 @@ public class Farm_Building : Buildings
     {
         switch (level)
         {
-            case 2: nutsCost = 150; health = 2000; delay = 45; expEarned = 4; foodUpg += 1; 
+            case 2: nutsCost = 150; health = 2000; delay = 45; expEarned = 40; foodUpg += 1; 
                 farmingDigimons = new DigimonObject[4] { farmingDigimons[0], farmingDigimons[1], null, null };
                 digimonAIs = new DigimonAI[4] { digimonAIs[0], digimonAIs[1], null, null }; break;
-            case 3: nutsCost = 400; health = 4000; delay = 60; expEarned = 8; foodUpg += 2; 
+            case 3: nutsCost = 400; health = 4000; delay = 60; expEarned = 80; foodUpg += 2; 
                 farmingDigimons = new DigimonObject[6] { farmingDigimons[0], farmingDigimons[1], farmingDigimons[2], farmingDigimons[3], null, null };
                 digimonAIs = new DigimonAI[6] { digimonAIs[0], digimonAIs[1], digimonAIs[2], digimonAIs[3], null, null }; break;
-            case 4: health = 8000; delay = 80; expEarned = 12; foodUpg += 4; 
+            case 4: health = 8000; delay = 80; expEarned = 160; foodUpg += 4; 
                 farmingDigimons = new DigimonObject[8] { farmingDigimons[0], farmingDigimons[1], farmingDigimons[2], farmingDigimons[3], farmingDigimons[4], farmingDigimons[5], null, null };
                 digimonAIs = new DigimonAI[8] { digimonAIs[0], digimonAIs[1], digimonAIs[2], digimonAIs[3], digimonAIs[4], digimonAIs[5], null, null }; break;
         }

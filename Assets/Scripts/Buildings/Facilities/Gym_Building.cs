@@ -10,7 +10,7 @@ public class Gym_Building : Buildings
     DigimonAI[] digimonAI = new DigimonAI[2];
     float combatUpg = 3;
     float delay = 30;
-    float expEarned = 2;
+    float expEarned = 20;
     float energyRequired = 30f;
     float nutsRequired = 15;
     Sprite sprite;
@@ -37,13 +37,13 @@ public class Gym_Building : Buildings
     {
         switch (level)
         {
-            case 2: nutsCost = 400; health = 1000; expEarned = 3; delay = 40; combatUpg += 3; 
+            case 2: nutsCost = 400; health = 1000; expEarned = 40; delay = 40; combatUpg += 3; 
                 trainingDigimons = new DigimonObject[4] { trainingDigimons[0], trainingDigimons[1], null, null };
                 digimonAI = new DigimonAI[4] { digimonAI[0], digimonAI[1], null, null }; break;
-            case 3: nutsCost = 700;health = 2000; expEarned = 5; delay = 40; combatUpg += 6; 
+            case 3: nutsCost = 700;health = 2000; expEarned = 80; delay = 40; combatUpg += 6; 
                 trainingDigimons = new DigimonObject[6] { trainingDigimons[0], trainingDigimons[1], trainingDigimons[2], trainingDigimons[3], null, null };
                 digimonAI = new DigimonAI[6] { digimonAI[0], digimonAI[1], digimonAI[2], digimonAI[3], null, null }; break;
-            case 4: health = 4000; expEarned = 8; delay = 40; combatUpg += 12; 
+            case 4: health = 4000; expEarned = 160; delay = 40; combatUpg += 12; 
                 trainingDigimons = new DigimonObject[8] { trainingDigimons[0], trainingDigimons[1], trainingDigimons[2], trainingDigimons[3], trainingDigimons[4], trainingDigimons[5], null, null };
                 digimonAI = new DigimonAI[8] { digimonAI[0], digimonAI[1], digimonAI[2], digimonAI[3], digimonAI[4], digimonAI[5], null, null }; break;
         }

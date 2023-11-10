@@ -19,6 +19,10 @@ public class EnemyManager : MonoBehaviour
     public int tentomonCount = 0;
     public int agumonCount = 0;
 
+    public Sprite[] palmonEvolutions;
+    public Sprite[] tentomonEvolutions;
+    public Sprite[] agumonEvolutions;
+
     string buildName;
     private void Start()
     {
@@ -71,18 +75,6 @@ public class EnemyManager : MonoBehaviour
 
         if (!GameManager.instance.CheckEnergy(character.DigiCost, true))
             return;
-
-        switch (character.name)
-        {
-            case "Palmon":
-                palmonCount++;
-                break;
-            case "Tentomon":
-                tentomonCount++;
-
-                break;
-        }
-
         GameManager.instance.ConsumeEnergy(character.DigiCost, true);
         Vector3 pos = GameManager.instance.GetEnemyBase().transform.position;
         GameObject newObject = Instantiate(digimonObject, new Vector3(pos.x, pos.y + 2, pos.z), Quaternion.identity);
@@ -95,6 +87,21 @@ public class EnemyManager : MonoBehaviour
         props.health = character.vida;
         props.name = character.name;
         newObject.name = character.name + " AI";
+        switch (character.name)
+        {
+            case "Palmon":
+                palmonCount++;
+                props.digimonEvolutions = palmonEvolutions;
+                break;
+            case "Tentomon":
+                tentomonCount++;
+                props.digimonEvolutions = tentomonEvolutions;
+                break;
+            default:
+                props.digimonEvolutions = agumonEvolutions;
+
+                break;
+        }
         props.SetSprite(character.GetSprite());
     }
 

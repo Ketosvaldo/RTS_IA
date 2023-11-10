@@ -8,7 +8,7 @@ public class Mine_Building : Buildings
     int level = 1;
     float delay = 30;
     float nutsUpg = 3;
-    float expEarned = 2;
+    float expEarned = 20;
     DigimonObject[] miningDigimon = new DigimonObject[2];
     DigimonAI[] digimonAI = new DigimonAI[2];
     Sprite sprite;
@@ -53,13 +53,13 @@ public class Mine_Building : Buildings
     {
         switch (level)
         {
-            case 2: nutsCost = 300; health = 1400; delay = 45; nutsUpg = 3; expEarned = 4; 
+            case 2: nutsCost = 300; health = 1400; delay = 45; nutsUpg = 3; expEarned = 40; 
                 miningDigimon = new DigimonObject[4] { miningDigimon[0], miningDigimon[1], null, null };
                 digimonAI = new DigimonAI[4] { digimonAI[0], digimonAI[1], null, null }; break;
-            case 3: nutsCost = 700; health = 2800; delay = 60; nutsUpg = 6; expEarned = 8; 
+            case 3: nutsCost = 700; health = 2800; delay = 60; nutsUpg = 6; expEarned = 80; 
                 miningDigimon = new DigimonObject[6] { miningDigimon[0], miningDigimon[1], miningDigimon[2], miningDigimon[3], null, null };
                 digimonAI = new DigimonAI[6] { digimonAI[0], digimonAI[1], digimonAI[2], digimonAI[3], null, null }; break;
-            case 4: health = 5600; delay = 75; nutsUpg = 12; expEarned = 12;
+            case 4: health = 5600; delay = 75; nutsUpg = 12; expEarned = 160;
                 miningDigimon = new DigimonObject[8] { miningDigimon[0], miningDigimon[1], miningDigimon[2], miningDigimon[3], miningDigimon[4], miningDigimon[5], null, null };
                 digimonAI = new DigimonAI[8] { digimonAI[0], digimonAI[1], digimonAI[2], digimonAI[3], digimonAI[4], digimonAI[5], null, null }; break;
         }
