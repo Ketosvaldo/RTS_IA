@@ -53,7 +53,7 @@ public class Gym_Building : Buildings
     {
         if (isEnemy)
         {
-            if (!GameManager.instance.CheckNuts(nutsCost))
+            if (!GameManager.instance.CheckNuts(nutsCost, true))
                 return;
             if (level == 4)
                 return;

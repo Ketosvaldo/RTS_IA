@@ -41,8 +41,10 @@ public class DigimonAI : MonoBehaviour
     Base baseTarget;
     private void Update()
     {
-        Debug.Log(isBusy);
-        GameManager.instance.ConsumeFood(consumeFood * Time.deltaTime, true);
+        if (GameManager.instance.CanConsumeFood(true))
+            GameManager.instance.ConsumeFood(consumeFood * Time.deltaTime, true);
+        else
+            HealthDrain();
         if (!move)
             return;
         transform.position = Vector3.MoveTowards(transform.position, newPos, 0.2f);
@@ -72,6 +74,11 @@ public class DigimonAI : MonoBehaviour
         StartCoroutine(TakeDecision());
     }
 
+    public void HealthDrain()
+    {
+        MakeDamage(10 * Time.deltaTime);
+    }
+
     //IA decide que hacer
     IEnumerator TakeDecision()
     {
@@ -97,6 +104,8 @@ public class DigimonAI : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprite;
+        slider.maxValue = health;
+        SetHealth();
     }
     //Funcion publica para ser llamado in-game que sirve para establecer que nuestro Digimon se vuelva uno de tipo combate
     public void SetCombatType()
@@ -305,7 +314,7 @@ public class DigimonAI : MonoBehaviour
 
     public void SetHealth()
     {
-        //slider.value = health;
+        slider.value = health;
     }
 
     void ResetStats()

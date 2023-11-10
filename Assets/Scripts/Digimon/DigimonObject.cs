@@ -40,7 +40,11 @@ public class DigimonObject : MonoBehaviour
 
     private void Update()
     {
-        GameManager.instance.ConsumeFood(consumeFood * Time.deltaTime);
+        Debug.Log(GameManager.instance.CanConsumeFood());
+        if (GameManager.instance.CanConsumeFood())
+            GameManager.instance.ConsumeFood(consumeFood * Time.deltaTime);
+        else
+            HealthDrain();
         if (!move)
             return;
         transform.position = Vector3.MoveTowards(transform.position, newPos, 0.2f);
@@ -60,6 +64,10 @@ public class DigimonObject : MonoBehaviour
         }
     }
 
+    public void HealthDrain()
+    {
+        MakeDamage(10 * Time.deltaTime);
+    }
 
     public void SetHealth()
     {
@@ -238,6 +246,8 @@ public class DigimonObject : MonoBehaviour
     {
         health -= damage;
         SetHealth();
+        if (health <= 0)
+            Destroy(gameObject);
     }
 
     void ResetStats()

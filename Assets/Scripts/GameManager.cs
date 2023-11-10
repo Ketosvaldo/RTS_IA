@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class GameManager : MonoBehaviour
 {
@@ -111,7 +110,7 @@ public class GameManager : MonoBehaviour
         playerBase.SetNuts(playerBase.GetNuts() - nuts);
     }
 
-    //Funci�n p�blica que sirve para activar un mensaje en UI para el jugador, donde dicho mensaje se escribe
+    //Funcion publica que sirve para activar un mensaje en UI para el jugador, donde dicho mensaje se escribe
     //como par�metro
     public void ActivateAlert(string message)
     {
@@ -203,5 +202,12 @@ public class GameManager : MonoBehaviour
     public void SetActualDigimon(DigimonObject _digimon)
     {
         actualDigimon = _digimon;
+    }
+
+    public bool CanConsumeFood(bool isEnemy = false)
+    {
+        if (isEnemy)
+            return (int)GetEnemyBase().GetFood() > 0;
+        return (int)GetBase().GetFood() > 0;
     }
 }
