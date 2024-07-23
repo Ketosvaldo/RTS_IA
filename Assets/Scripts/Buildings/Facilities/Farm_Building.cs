@@ -21,7 +21,7 @@ public class Farm_Building : Buildings
     {
         if (isEnemy)
         {
-            if (!GameManager.instance.CheckNuts(nutsCost, true))
+            if (!GameManager.instance.CheckNuts(nutsCost))
                 return;
             if (level == 4)
                 return;
